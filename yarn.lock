@@ -1122,6 +1122,26 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.5.tgz#e92d3b8f76583efa26c1a63a21c9d3c1143daa29"
   integrity sha1-6S07j3ZYPvomwaY6IcnTwRQ9qik=
 
+"@types/prop-types@*":
+  version "15.7.3"
+  resolved "https://registry.npm.taobao.org/@types/prop-types/download/@types/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
+  integrity sha1-KrDV2i5YFflLC51LldHl8kOrLKc=
+
+"@types/react-dom@^16.9.9":
+  version "16.9.9"
+  resolved "https://registry.npm.taobao.org/@types/react-dom/download/@types/react-dom-16.9.9.tgz#d2d0a6f720a0206369ccbefff752ba37b9583136"
+  integrity sha1-0tCm9yCgIGNpzL7/91K6N7lYMTY=
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@^16.9.54":
+  version "16.9.54"
+  resolved "https://registry.npm.taobao.org/@types/react/download/@types/react-16.9.54.tgz#140280c31825287ee74e9da95285b91c5a2e471d"
+  integrity sha1-FAKAwxglKH7nTp2pUoW5HFouRx0=
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^3.0.2"
+
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"
   resolved "https://registry.npm.taobao.org/@webassemblyjs/ast/download/@webassemblyjs/ast-1.9.0.tgz#bd850604b4042459a5a41cd7d338cbed695ed964"
@@ -2216,6 +2236,11 @@ cssnano-simple@1.2.0:
   dependencies:
     cssnano-preset-simple "1.2.0"
     postcss "^7.0.32"
+
+csstype@^3.0.2:
+  version "3.0.4"
+  resolved "https://registry.npm.taobao.org/csstype/download/csstype-3.0.4.tgz?cache=0&sync_timestamp=1603439946794&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcsstype%2Fdownload%2Fcsstype-3.0.4.tgz#b156d7be03b84ff425c9a0a4b1e5f4da9c5ca888"
+  integrity sha1-sVbXvgO4T/QlyaCkseX02pxcqIg=
 
 cyclist@^1.0.1:
   version "1.0.1"
