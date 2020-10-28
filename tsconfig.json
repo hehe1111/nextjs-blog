@@ -66,8 +66,29 @@
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */,
 
-    // for typeorm
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
-  }
+    // next.js detected TS and reconfigured tsconfig.json
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+
+  // for typeorm
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true,
 }
