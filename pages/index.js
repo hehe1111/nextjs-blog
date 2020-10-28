@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import image from 'assets/images/image.png';
 
 export default function Home() {
   return (
@@ -12,6 +13,8 @@ export default function Home() {
         <h1 className="title">
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        <img src={image} alt="图片 600 x 400" />
 
         <p className="description">
           Get started by editing <code>pages/index.js</code>
