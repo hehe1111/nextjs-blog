@@ -9,7 +9,8 @@
     "m:create": "typeorm migration:create --name",
     "m:run": "typeorm migration:run",
     "m:revert": "typeorm migration:revert",
-    "e:create": "typeorm entity:create --name"
+    "e:create": "typeorm entity:create --name",
+    "seed": "node ./dist/seed.js"
   },
   "dependencies": {
     "next": "9.5.3",
