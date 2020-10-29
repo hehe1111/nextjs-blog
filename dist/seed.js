@@ -14,7 +14,7 @@ var _Post = require("./entity/Post");
 
 (0, _typeorm.createConnection)().then( /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(connection) {
-    var p1, post, p2;
+    var postArray;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -23,24 +23,28 @@ var _Post = require("./entity/Post");
             return connection.manager.find(_Post.Post);
 
           case 2:
-            p1 = _context.sent;
-            console.log(p1);
-            post = new _Post.Post();
-            post.title = 'Article 1';
-            post.content = 'This is my first article. Hello world.';
-            _context.next = 9;
-            return connection.manager.save(post);
+            postArray = _context.sent;
 
-          case 9:
-            _context.next = 11;
-            return connection.manager.find(_Post.Post);
+            if (!(postArray.length === 0)) {
+              _context.next = 7;
+              break;
+            }
 
-          case 11:
-            p2 = _context.sent;
-            console.log(p2);
+            _context.next = 6;
+            return connection.manager.save([1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(function (i) {
+              return new _Post.Post({
+                title: "Post ".concat(i),
+                content: "This is post ".concat(i)
+              });
+            }));
+
+          case 6:
+            console.log('填充了 10 条数据');
+
+          case 7:
             connection.close();
 
-          case 14:
+          case 8:
           case "end":
             return _context.stop();
         }

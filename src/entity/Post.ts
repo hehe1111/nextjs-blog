@@ -10,4 +10,8 @@ export class Post {
 
   @Column('text')
   content: string;
+
+  constructor(fields: Partial<Post>) {
+    Object.assign(this, fields);
+  }
 }
