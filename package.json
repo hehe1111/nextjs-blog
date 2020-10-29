@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "compile:src": "./node_modules/.bin/babel ./src/ --out-dir ./dist/ --extensions .ts,.tsx",
+    "migration:run": "./node_modules/.bin/typeorm migration:run",
+    "migration:revert": "./node_modules/.bin/typeorm migration:revert"
   },
   "dependencies": {
     "next": "9.5.3",
