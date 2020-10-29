@@ -6,10 +6,10 @@
     "dev": "concurrently \"next dev\" \"babel ./src/ --out-dir ./dist/ --watch --extensions .ts,.tsx\"",
     "build": "next build",
     "start": "next start",
-    "migration:create": "typeorm migration:create --name",
-    "migration:run": "typeorm migration:run",
-    "migration:revert": "typeorm migration:revert",
-    "entity:create": "typeorm entity:create --name"
+    "m:create": "typeorm migration:create --name",
+    "m:run": "typeorm migration:run",
+    "m:revert": "typeorm migration:revert",
+    "e:create": "typeorm entity:create --name"
   },
   "dependencies": {
     "next": "9.5.3",
