@@ -1,6 +1,8 @@
 import Head from 'next/head';
+import type { AppProps } from 'next/app';
 
-export default function App({ Component, pageProps }) {
+// https://www.nextjs.cn/docs/basic-features/typescript#custom-app
+export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
