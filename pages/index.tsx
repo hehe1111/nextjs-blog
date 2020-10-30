@@ -1,29 +1,33 @@
 import { getDatabaseConnection } from 'lib/getDatabaseConnection';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import { Post } from 'src/entity/Post';
 
 type IProps = {
   posts: Post[];
 };
 
-const Home: NextPage<IProps> = props => {
+const AllPosts: NextPage<IProps> = ({ posts }) => {
   return (
-    <div className="container">
+    <>
       <Head>
-        <title>All post</title>
+        <title>All posts</title>
       </Head>
-
       <main>
-        {props.posts.map(post => (
-          <p key={post.id}>{post.title}</p>
+        {posts.map(post => (
+          <p key={post.id}>
+            <Link href={`/post/${post.id}`}>
+              <a>{post.title}</a>
+            </Link>
+          </p>
         ))}
       </main>
-    </div>
+    </>
   );
 };
 
-export default Home;
+export default AllPosts;
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const connection = await getDatabaseConnection();
