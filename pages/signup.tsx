@@ -37,7 +37,6 @@ const SignUp: NextPage = () => {
         <title>注册</title>
       </Head>
 
-      <p>{JSON.stringify(info)}</p>
       <h1>注册</h1>
       <form onSubmit={onSubmit}>
         <div>
