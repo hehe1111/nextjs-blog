@@ -57,45 +57,51 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
     (0, _initializerDefineProperty2["default"])(this, "comments", _descriptor7, this);
     (0, _defineProperty2["default"])(this, "password", void 0);
     (0, _defineProperty2["default"])(this, "passwordConfirmation", void 0);
-    (0, _defineProperty2["default"])(this, "errors", {
-      username: [],
-      password: [],
-      passwordConfirmation: []
-    });
   }
 
   (0, _createClass2["default"])(User, [{
-    key: "validate",
+    key: "validateSignUp",
     value: function () {
-      var _validate = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee() {
-        var _name, found;
+      var _validateSignUp = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee() {
+        var errors, _name, found;
 
         return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                errors = {
+                  username: [],
+                  password: [],
+                  passwordConfirmation: []
+                };
                 _name = this.username.trim();
-                _name === '' && this.errors.username.push('用户名不能为空');
-                !/[0-9A-Za-z]+/g.test(_name) && this.errors.username.push('用户名只能由大小写字母或数字组成');
-                _name.length < 3 && this.errors.username.push('用户名不能少于 3 位');
-                _name.length > 16 && this.errors.username.push('用户名不能多于 16 位'); // 找不到则返回空数组
+                _name === '' && errors.username.push('用户名不能为空');
+                !/[0-9A-Za-z]+/g.test(_name) && errors.username.push('用户名只能由大小写字母或数字组成');
+                _name.length < 3 && errors.username.push('用户名不能少于 3 位');
+                _name.length > 16 && errors.username.push('用户名不能多于 16 位'); // 找不到则返回空数组
 
-                _context.next = 7;
+                _context.next = 8;
                 return (0, _getDatabaseConnection.getDatabaseConnection)();
 
-              case 7:
-                _context.next = 9;
+              case 8:
+                _context.next = 10;
                 return _context.sent.manager.find(User, {
                   username: this.username
                 });
 
-              case 9:
+              case 10:
                 found = _context.sent;
-                found.length > 0 && this.errors.username.push('用户名已被占用');
-                this.password.length === 0 && this.errors.password.push('密码不能为空');
-                this.password !== this.passwordConfirmation && this.errors.passwordConfirmation.push('密码与确认密码不一致');
+                found.length > 0 && errors.username.push('用户名已被占用');
+                this.password.length === 0 && errors.password.push('密码不能为空');
+                this.password !== this.passwordConfirmation && errors.passwordConfirmation.push('密码与确认密码不一致');
+                return _context.abrupt("return", {
+                  hasErrors: !!Object.values(errors).find(function (v) {
+                    return v.length > 0;
+                  }),
+                  errors: errors
+                });
 
-              case 13:
+              case 15:
               case "end":
                 return _context.stop();
             }
@@ -103,19 +109,71 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
         }, _callee, this);
       }));
 
-      function validate() {
-        return _validate.apply(this, arguments);
+      function validateSignUp() {
+        return _validateSignUp.apply(this, arguments);
       }
 
-      return validate;
+      return validateSignUp;
     }()
   }, {
-    key: "hasErrors",
-    value: function hasErrors() {
-      return !!Object.values(this.errors).find(function (v) {
-        return v.length > 0;
-      });
-    }
+    key: "validateSignIn",
+    value: function () {
+      var _validateSignIn = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2() {
+        var errors, found;
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                errors = {
+                  username: [],
+                  password: []
+                };
+                this.username.trim() === '' && errors.username.push('请填写用户名');
+                this.password.trim() === '' && errors.password.push('请填写密码');
+                _context2.next = 5;
+                return (0, _getDatabaseConnection.getDatabaseConnection)();
+
+              case 5:
+                _context2.next = 7;
+                return _context2.sent.manager.findOne(User, {
+                  where: {
+                    username: this.username
+                  }
+                });
+
+              case 7:
+                found = _context2.sent;
+
+                if (found) {
+                  if (found.passwordDigest !== (0, _md["default"])(this.password)) {
+                    errors.password.push('密码与用户名不匹配');
+                  }
+                } else {
+                  this.username.trim() !== '' && errors.username.push('用户不存在');
+                }
+
+                return _context2.abrupt("return", {
+                  hasErrors: !!Object.values(errors).find(function (v) {
+                    return v.length > 0;
+                  }),
+                  errors: errors,
+                  found: found
+                });
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function validateSignIn() {
+        return _validateSignIn.apply(this, arguments);
+      }
+
+      return validateSignIn;
+    }()
   }, {
     key: "generatePasswordDigest",
     value: function generatePasswordDigest() {
@@ -124,7 +182,7 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
   }, {
     key: "toJSON",
     value: function toJSON() {
-      return (0, _omit["default"])(this, ['password', 'passwordConfirmation', 'passwordDigest', 'errors']);
+      return (0, _omit["default"])(this, ['password', 'passwordConfirmation', 'passwordDigest']);
     }
   }]);
   return User;

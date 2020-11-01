@@ -15,10 +15,10 @@ const UserApi: NextApiHandler = async (request, response) => {
   user.username = username.trim();
   user.password = password.trim();
   user.passwordConfirmation = passwordConfirmation.trim();
-  await user.validate();
-  if (user.hasErrors()) {
+  const { hasErrors, errors } = await user.validateSignUp();
+  if (hasErrors) {
     response.statusCode = 422;
-    response.write(JSON.stringify(user.errors));
+    response.write(JSON.stringify(errors));
   } else {
     await connection.manager.save(user);
     response.statusCode = 200;
