@@ -1,5 +1,5 @@
 import { getDatabaseConnection } from 'lib/getDatabaseConnection';
-import { GetServerSideProps, NextPage } from 'next';
+import { NextPage, GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { Post } from 'src/entity/Post';
 
@@ -21,12 +21,11 @@ const ThePost: NextPage<IProps> = ({ post }) => {
 
 export default ThePost;
 
-export const getServerSideProps: GetServerSideProps<
-  any,
-  { id: string }
-> = async context => {
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext<{ id: string }>
+) => {
   const connection = await getDatabaseConnection();
-  const post = await connection.manager.findOne(Post, context.params.id);
+  const post = await connection.manager.findOne(Post, context.params?.id);
   return {
     props: {
       post: JSON.parse(JSON.stringify(post)),
