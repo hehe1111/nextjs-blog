@@ -18,12 +18,14 @@ const SignUp: NextPage = () => {
     event => {
       event.preventDefault();
       axios.post('/api/v1/user', info).then(
-        () => alert('注册成功'),
+        () => {
+          alert('注册成功');
+          window.location.href = '/signin';
+        },
         error => {
           if (error.response) {
             const response: AxiosResponse = error.response;
-            response.status === 422 &&
-              setErrors({ ...errors, ...response.data });
+            response.status === 422 && setErrors(response.data);
           }
         }
       );
