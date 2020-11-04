@@ -25,9 +25,11 @@ export class User {
   createdAt: Date;
   @UpdateDateColumn()
   updatedAt: Date;
-  @OneToMany(type => Post, post => post.author)
+  // Relation decorators: allow to pass string instead of typeFunction
+  // https://github.com/typeorm/typeorm/issues/4190
+  @OneToMany('Post', 'author')
   posts: Post[];
-  @OneToMany(type => Comment, comment => comment.user)
+  @OneToMany('Comment', 'user')
   comments: Comment[];
 
   // 只是声明了实例属性的类型，未赋值，所以用冒号
