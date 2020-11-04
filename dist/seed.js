@@ -80,10 +80,13 @@ var _Comment = require("./entity/Comment");
             return manager.save(comment);
 
           case 30:
-            connection.close();
-            console.log('SEED DONE!');
+            _context.next = 32;
+            return connection.close();
 
           case 32:
+            console.log('SEED DONE!');
+
+          case 33:
           case "end":
             return _context.stop();
         }

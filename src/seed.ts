@@ -31,7 +31,7 @@ createConnection()
       comment.content = 'This is a comment.';
       await manager.save(comment);
     }
-    connection.close();
+    await connection.close();
     console.log('SEED DONE!');
   })
   .catch(error => console.log(error));
