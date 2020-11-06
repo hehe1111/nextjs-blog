@@ -21,6 +21,7 @@ const PostAll: NextPage<IProps> = ({ posts }) => {
             <Link href={`/posts/${post.id}`}>
               <a>{post.title}</a>
             </Link>
+            <span> @{new Date(post.createdAt).toLocaleDateString()}</span>
           </div>
         ))}
       </main>
@@ -32,7 +33,11 @@ export default PostAll;
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const connection = await getDatabaseConnection();
-  const posts = await connection.manager.find(Post);
+  const posts = await connection.manager.find(Post, {
+    // https://typeorm.io/#/find-options
+    order: { createdAt: 'DESC' },
+  });
+
   return {
     props: {
       posts: JSON.parse(JSON.stringify(posts)),
