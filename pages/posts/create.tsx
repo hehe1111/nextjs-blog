@@ -13,17 +13,10 @@ const PostCreate: NextPage = () => {
       event.preventDefault();
       axios.post('/api/v1/post/create', info).then(
         response => {
-          console.log('新增博客成功', response);
-          // alert('登录成功');
-          // window.location.href = '/';
+          window.location.replace('/posts/');
         },
         error => {
-          console.log('新增博客失败', error);
-
-          // if (error.response) {
-          //   const response: AxiosResponse = error.response;
-          //   response.status === 422 && setErrors(response.data);
-          // }
+          alert('新增博客失败');
         }
       );
     },
@@ -59,7 +52,7 @@ const PostCreate: NextPage = () => {
           ></textarea>
         </div>
         <div>
-          <button type="submit">提交</button>
+          <button type="submit">新增</button>
         </div>
       </form>
     </>
