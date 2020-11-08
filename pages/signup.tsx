@@ -1,7 +1,8 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useCallback, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import client from 'lib/client';
+import { AxiosResponse } from 'axios';
 
 const SignUp: NextPage = () => {
   const [info, setInfo] = useState({
@@ -17,7 +18,7 @@ const SignUp: NextPage = () => {
   const onSubmit = useCallback(
     event => {
       event.preventDefault();
-      axios.post('/api/v1/user', info).then(
+      client.post('/api/v1/user', info).then(
         () => {
           alert('注册成功');
           window.location.href = '/signin';

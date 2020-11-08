@@ -8,13 +8,17 @@ const PostCreate: NextApiHandler = async (request, response) => {
   const METHOD = 'POST';
   if (request.method?.toUpperCase() !== METHOD) {
     response.statusCode = 405;
-    return response.end(`{message: "请求方法只能为 ${METHOD}"}`);
+    return response.json({ message: `请求方法只能为 ${METHOD}` });
+  }
+  const user = request.session.get('currentUser');
+  if (!user) {
+    response.statusCode = 401;
+    return response.json({ message: '请先登录' });
   }
   const { title, content } = request.body;
   const post = new Post();
   post.title = title;
   post.content = content;
-  const user = request.session.get('currentUser');
   post.author = user;
   const connection = await getDatabaseConnection();
   await connection.manager.save(post);

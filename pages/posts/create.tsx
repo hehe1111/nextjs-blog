@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useCallback, useState } from 'react';
-import axios from 'axios';
+import client from 'lib/client';
 
 const PostCreate: NextPage = () => {
   const [info, setInfo] = useState({
@@ -11,13 +11,9 @@ const PostCreate: NextPage = () => {
   const onSubmit = useCallback(
     event => {
       event.preventDefault();
-      axios.post('/api/v1/post/create', info).then(
-        response => {
-          window.location.replace('/posts/');
-        },
-        error => {
-          alert('新增博客失败');
-        }
+      client.post('/api/v1/post/create', info).then(
+        response => window.location.replace('/posts/'),
+        error => console.log(error.response.data.message)
       );
     },
     [info]

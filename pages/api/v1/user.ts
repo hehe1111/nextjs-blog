@@ -7,7 +7,7 @@ const UserApi: NextApiHandler = async (request, response) => {
   const METHOD = 'POST';
   if (request.method?.toUpperCase() !== METHOD) {
     response.statusCode = 405;
-    return response.end(`{message: "请求方法只能为 ${METHOD}"}`);
+    return response.json({ message: `请求方法只能为 ${METHOD}` });
   }
   const { username, password, passwordConfirmation } = request.body;
   const connection = await getDatabaseConnection();

@@ -1,7 +1,8 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useCallback, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import client from 'lib/client';
+import { AxiosResponse } from 'axios';
 import { withSession } from 'lib/withSession';
 
 const SignIn: NextPage = () => {
@@ -13,7 +14,7 @@ const SignIn: NextPage = () => {
   const onSubmit = useCallback(
     event => {
       event.preventDefault();
-      axios.post('/api/v1/sessions', info).then(
+      client.post('/api/v1/sessions', info).then(
         () => {
           alert('登录成功');
           window.location.href = '/';
