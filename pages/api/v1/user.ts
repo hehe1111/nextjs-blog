@@ -1,13 +1,15 @@
 import { getDatabaseConnection } from 'lib/getDatabaseConnection';
+import validateRequest from 'lib/validateRequest';
 import { NextApiHandler } from 'next';
 import { User } from 'src/entity/User';
 
 const UserApi: NextApiHandler = async (request, response) => {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
-  const METHOD = 'POST';
-  if (request.method?.toUpperCase() !== METHOD) {
-    response.statusCode = 405;
-    return response.json({ message: `请求方法只能为 ${METHOD}` });
+  const { isMethodValidated } = validateRequest(request, response, {
+    method: 'POST',
+  });
+  if (!isMethodValidated) {
+    return;
   }
   const { username, password, passwordConfirmation } = request.body;
   const connection = await getDatabaseConnection();
