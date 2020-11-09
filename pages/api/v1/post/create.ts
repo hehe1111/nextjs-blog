@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next';
 import { Post } from 'src/entity/Post';
 import { withSession } from 'lib/withSession';
-import { getDatabaseConnection } from 'lib/getDatabaseConnection';
+import getDatabaseConnection from 'lib/getDatabaseConnection';
 import validateRequest from 'lib/validateRequest';
 
 const PostCreate: NextApiHandler = async (request, response) => {

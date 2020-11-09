@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Post } from './Post';
 import { Comment } from './Comment';
-import { getDatabaseConnection } from 'lib/getDatabaseConnection';
+import getDatabaseConnection from 'lib/getDatabaseConnection';
 import md5 from 'md5';
 import omit from 'lodash/omit';
 

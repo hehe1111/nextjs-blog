@@ -1,4 +1,4 @@
-import { getDatabaseConnection } from 'lib/getDatabaseConnection';
+import getDatabaseConnection from 'lib/getDatabaseConnection';
 import validateRequest from 'lib/validateRequest';
 import { NextApiHandler } from 'next';
 import { User } from 'src/entity/User';

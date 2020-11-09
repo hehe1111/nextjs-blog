@@ -1,4 +1,4 @@
-import { getDatabaseConnection } from 'lib/getDatabaseConnection';
+import getDatabaseConnection from 'lib/getDatabaseConnection';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';

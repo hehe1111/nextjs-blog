@@ -25,7 +25,7 @@ var _initializerWarningHelper2 = _interopRequireDefault(require("@babel/runtime/
 
 var _typeorm = require("typeorm");
 
-var _getDatabaseConnection = require("lib/getDatabaseConnection");
+var _getDatabaseConnection = _interopRequireDefault(require("../../lib/getDatabaseConnection"));
 
 var _md = _interopRequireDefault(require("md5"));
 
@@ -69,7 +69,7 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
                 _name.length > 16 && errors.username.push('用户名不能多于 16 位'); // 找不到则返回空数组
 
                 _context.next = 8;
-                return (0, _getDatabaseConnection.getDatabaseConnection)();
+                return (0, _getDatabaseConnection["default"])();
 
               case 8:
                 _context.next = 10;
@@ -119,7 +119,7 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
                 this.username.trim() === '' && errors.username.push('请填写用户名');
                 this.password.trim() === '' && errors.password.push('请填写密码');
                 _context2.next = 5;
-                return (0, _getDatabaseConnection.getDatabaseConnection)();
+                return (0, _getDatabaseConnection["default"])();
 
               case 5:
                 _context2.next = 7;

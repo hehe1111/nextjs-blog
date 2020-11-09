@@ -1,4 +1,4 @@
-import { getDatabaseConnection } from 'lib/getDatabaseConnection';
+import getDatabaseConnection from 'lib/getDatabaseConnection';
 import { NextPage, GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { Post } from 'src/entity/Post';
