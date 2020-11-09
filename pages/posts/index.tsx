@@ -16,14 +16,19 @@ const PostAll: NextPage<IProps> = ({ posts }) => {
       </Head>
 
       <main>
-        {posts.map(post => (
-          <div key={post.id}>
-            <Link href={`/posts/${post.id}`}>
-              <a>{post.title}</a>
-            </Link>
-            <span> @{new Date(post.createdAt).toLocaleDateString()}</span>
-          </div>
-        ))}
+        {posts.map(post => {
+          const date = new Date(post.createdAt)
+            .toLocaleDateString()
+            .replace(/\//g, '-'); // WHY?
+          return (
+            <div key={post.id}>
+              <Link href={`/posts/${post.id}`}>
+                <a>{post.title}</a>
+              </Link>
+              <span> @{date}</span>
+            </div>
+          );
+        })}
       </main>
     </>
   );
