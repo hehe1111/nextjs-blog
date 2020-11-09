@@ -33,7 +33,7 @@ export default PostAll;
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const connection = await getDatabaseConnection();
-  const posts = await connection.manager.find(Post, {
+  const posts = await connection.manager.find('Post', {
     // https://typeorm.io/#/find-options
     order: { createdAt: 'DESC' },
   });
