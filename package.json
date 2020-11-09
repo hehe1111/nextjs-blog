@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "compile:src": "babel ./src/ --out-dir ./dist/ --extensions .ts,.tsx",
-    "connection": "babel ./lib/getDatabaseConnection.ts --out-file ./lib/getDatabaseConnection.js",
     "dev": "concurrently \"next dev\" \"yarn compile:src --watch\"",
     "build": "next build",
     "start": "next start",

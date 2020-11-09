@@ -25,7 +25,7 @@ var _initializerWarningHelper2 = _interopRequireDefault(require("@babel/runtime/
 
 var _typeorm = require("typeorm");
 
-var _getDatabaseConnection = _interopRequireDefault(require("../../lib/getDatabaseConnection"));
+var _getDatabaseConnection = _interopRequireDefault(require("lib/getDatabaseConnection"));
 
 var _md = _interopRequireDefault(require("md5"));
 
