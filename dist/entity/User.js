@@ -66,20 +66,21 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
                 _name === '' && errors.username.push('用户名不能为空');
                 !/[0-9A-Za-z]+/g.test(_name) && errors.username.push('用户名只能由大小写字母或数字组成');
                 _name.length < 3 && errors.username.push('用户名不能少于 3 位');
-                _name.length > 16 && errors.username.push('用户名不能多于 16 位'); // 找不到则返回空数组
-
+                _name.length > 16 && errors.username.push('用户名不能多于 16 位');
                 _context.next = 8;
                 return (0, _getDatabaseConnection["default"])();
 
               case 8:
                 _context.next = 10;
-                return _context.sent.manager.find(User, {
-                  username: this.username
+                return _context.sent.manager.findOne('User', {
+                  where: {
+                    username: this.username
+                  }
                 });
 
               case 10:
                 found = _context.sent;
-                found.length > 0 && errors.username.push('用户名已被占用');
+                found && errors.username.push('用户名已被占用');
                 this.password.length === 0 && errors.password.push('密码不能为空');
                 this.password !== this.passwordConfirmation && errors.passwordConfirmation.push('密码与确认密码不一致');
                 return _context.abrupt("return", {
@@ -123,7 +124,7 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
 
               case 5:
                 _context2.next = 7;
-                return _context2.sent.manager.findOne(User, {
+                return _context2.sent.manager.findOne('User', {
                   where: {
                     username: this.username
                   }

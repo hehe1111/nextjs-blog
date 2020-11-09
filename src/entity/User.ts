@@ -48,11 +48,11 @@ export class User {
       errors.username.push('用户名只能由大小写字母或数字组成');
     _name.length < 3 && errors.username.push('用户名不能少于 3 位');
     _name.length > 16 && errors.username.push('用户名不能多于 16 位');
-    // 找不到则返回空数组
-    const found = await (await getDatabaseConnection()).manager.find(User, {
-      username: this.username,
-    });
-    found.length > 0 && errors.username.push('用户名已被占用');
+    const found = await (await getDatabaseConnection()).manager.findOne(
+      'User',
+      { where: { username: this.username } }
+    );
+    found && errors.username.push('用户名已被占用');
     this.password.length === 0 && errors.password.push('密码不能为空');
     this.password !== this.passwordConfirmation &&
       errors.passwordConfirmation.push('密码与确认密码不一致');
@@ -67,9 +67,10 @@ export class User {
     const errors = { username: [] as string[], password: [] as string[] };
     this.username.trim() === '' && errors.username.push('请填写用户名');
     this.password.trim() === '' && errors.password.push('请填写密码');
-    const found = await (await getDatabaseConnection()).manager.findOne(User, {
-      where: { username: this.username },
-    });
+    const found = await (await getDatabaseConnection()).manager.findOne(
+      'User',
+      { where: { username: this.username } }
+    );
     if (found) {
       if (found.passwordDigest !== md5(this.password)) {
         errors.password.push('密码与用户名不匹配');
