@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import styled from 'styled-components';
 
 type IProps = {
   page: number;
@@ -6,35 +7,56 @@ type IProps = {
 };
 type IResult = Array<number | string>;
 
+const PageContainer = styled.div`
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+`;
+const PageAnchor = styled.div`
+  padding: 10px 20px;
+  cursor: pointer;
+  user-select: none;
+  &.plain {
+    cursor: not-allowed;
+  }
+  &:hover:not(.plain),
+  &.active {
+    background-color: #0170fe;
+    color: #fff;
+  }
+`;
+
 const usePage = ({ page, totalPage }: IProps) => {
   const numbers = generatePaginationNumberArray({ page, totalPage });
   const view = (
     <>
       {page <= totalPage && (
-        <div>
-          共 {totalPage} 页，当前在第 {page} 页
+        <PageContainer>
+          共 {totalPage} 页，
           {page > 1 && (
             <Link href={getHref(page - 1)}>
-              <a>上一页</a>
+              <PageAnchor>上一页</PageAnchor>
             </Link>
           )}
           {numbers.map((p, index) => (
-            <span key={`${index}-${p}`}>
-              {typeof p === 'number' && p !== page ? (
+            <div key={`${index}-${p}`}>
+              {p === page ? (
+                <PageAnchor className="plain active">{p}</PageAnchor>
+              ) : typeof p === 'number' ? (
                 <Link href={getHref(p)}>
-                  <a>{p}</a>
+                  <PageAnchor>{p}</PageAnchor>
                 </Link>
               ) : (
-                p
+                <PageAnchor className="plain">{p}</PageAnchor>
               )}
-            </span>
+            </div>
           ))}
           {page < totalPage && (
             <Link href={getHref(page + 1)}>
-              <a>下一页</a>
+              <PageAnchor>下一页</PageAnchor>
             </Link>
           )}
-        </div>
+        </PageContainer>
       )}
     </>
   );
