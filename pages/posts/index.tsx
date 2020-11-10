@@ -1,3 +1,4 @@
+import usePage from 'hooks/usePage';
 import getDatabaseConnection from 'lib/getDatabaseConnection';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
@@ -12,6 +13,7 @@ type IProps = {
 };
 
 const PostAll: NextPage<IProps> = ({ posts, page, totalPage, total }) => {
+  const { view: pager } = usePage({ page, totalPage });
   return (
     <>
       <Head>
@@ -35,13 +37,7 @@ const PostAll: NextPage<IProps> = ({ posts, page, totalPage, total }) => {
           );
         })}
       </main>
-      {page <= totalPage && (
-        <footer>
-          共 {totalPage} 页，当前在第 {page} 页
-          {page > 1 && <Link href={`?page=${page - 1}`}>上一页</Link>}
-          {page < totalPage && <Link href={`?page=${page + 1}`}>下一页</Link>}
-        </footer>
-      )}
+      <footer>{pager}</footer>
     </>
   );
 };
