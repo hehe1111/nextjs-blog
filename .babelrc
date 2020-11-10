@@ -2,6 +2,7 @@
   "presets": ["next/babel"],
   "plugins": [
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    ["module-resolver", { "root": ["."] }]
+    ["module-resolver", { "root": ["."] }],
+    ["styled-components", { "ssr": true }]
   ]
 }
