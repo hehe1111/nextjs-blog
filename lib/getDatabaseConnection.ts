@@ -7,10 +7,8 @@ import { Comment } from 'src/entity/Comment';
 
 const promise = (async function () {
   const manager = getConnectionManager();
-  if (manager.has('default')) {
-    const current = manager.get('default');
-    return current.isConnected ? current : current.connect();
-  }
+  const current = manager.has('default') && manager.get('default');
+  current && (await current.close());
   // @ts-ignore
   return createConnection({ ...config, entities: [Post, User, Comment] });
 })();
