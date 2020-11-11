@@ -70,7 +70,7 @@ export class User {
     const found = await (await getDatabaseConnection()).manager.findOne(
       'User',
       { where: { username: this.username } }
-    );
+    ) as User;
     if (found) {
       if (found.passwordDigest !== md5(this.password)) {
         errors.password.push('密码与用户名不匹配');
