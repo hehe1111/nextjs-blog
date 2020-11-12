@@ -13,6 +13,10 @@ const promise = (async function () {
   return createConnection({
     ...config,
     host: process.env.NODE_ENV === 'production' ? 'localhost' : config.host,
+    database:
+      process.env.NODE_ENV === 'production'
+        ? 'blog_production'
+        : config.database,
     entities: [Post, User, Comment],
   });
 })();
