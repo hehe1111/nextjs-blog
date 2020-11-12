@@ -10,7 +10,9 @@ type IResult = Array<number | string>;
 const PageContainer = styled.div`
   margin: 10px 0;
   display: flex;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 `;
 const PageAnchor = styled.div`
   padding: 10px 20px;
@@ -35,7 +37,7 @@ const usePage = ({ page, totalPage }: IProps) => {
           共 {totalPage} 页，
           {page > 1 && (
             <Link href={getHref(page - 1)}>
-              <PageAnchor>上一页</PageAnchor>
+              <PageAnchor>&lt;&lt;</PageAnchor>
             </Link>
           )}
           {numbers.map((p, index) => (
@@ -53,7 +55,7 @@ const usePage = ({ page, totalPage }: IProps) => {
           ))}
           {page < totalPage && (
             <Link href={getHref(page + 1)}>
-              <PageAnchor>下一页</PageAnchor>
+              <PageAnchor>&gt;&gt;</PageAnchor>
             </Link>
           )}
         </PageContainer>

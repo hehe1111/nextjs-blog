@@ -2,19 +2,45 @@ import getDatabaseConnection from 'lib/getDatabaseConnection';
 import { NextPage, GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { Post } from 'src/entity/Post';
+import styled from 'styled-components';
 
 type IProps = {
   post: Post;
 };
 
+const PostTitle = styled.h1`
+  margin-top: 20px;
+  text-align: center;
+`;
+const PostTime = styled.div`
+  margin-top: 8px;
+  font-size: 0.8em;
+  color: #aaa;
+  text-align: center;
+`;
+const PostContent = styled.article`
+  padding: 0 2em;
+  margin: 20px 0;
+  @media (max-width: 800px) {
+    padding: 0;
+  }
+`;
+
 const ThePost: NextPage<IProps> = ({ post }) => {
+  const date = new Date(post.createdAt)
+    .toLocaleDateString()
+    .replace(/\//g, '-'); // WHY?
+
   return (
     <>
       <Head>
         <title>{post.title}</title>
       </Head>
-      <h1>{post.title}</h1>
-      <article dangerouslySetInnerHTML={{ __html: post.content }}></article>
+      <PostTitle>{post.title}</PostTitle>
+      <PostTime>{date}</PostTime>
+      <PostContent
+        dangerouslySetInnerHTML={{ __html: post.content }}
+      ></PostContent>
     </>
   );
 };

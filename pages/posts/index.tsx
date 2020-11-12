@@ -4,6 +4,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { Post } from 'src/entity/Post';
+import styled from 'styled-components';
 
 type IProps = {
   posts: Post[];
@@ -12,7 +13,20 @@ type IProps = {
   total: number;
 };
 
-const PostAll: NextPage<IProps> = ({ posts, page, totalPage, total }) => {
+const PostTitleItem = styled.div`
+  padding: 16px 0;
+  border-bottom: 1px solid #ccc;
+`;
+const Time = styled.div`
+  margin-top: 4px;
+  font-size: 0.8em;
+  color: #aaa;
+`;
+const Footer = styled.div`
+  margin-top: 20px;
+`;
+
+const PostList: NextPage<IProps> = ({ posts, page, totalPage, total }) => {
   const { view: pager } = usePage({ page, totalPage });
   return (
     <>
@@ -20,7 +34,8 @@ const PostAll: NextPage<IProps> = ({ posts, page, totalPage, total }) => {
         <title>文章列表</title>
       </Head>
 
-      <h1>文章列表（共 {total} 篇）</h1>
+      <h1>文章列表</h1>
+      <small>（共 {total} 篇）</small>
       {posts.length === 0 && <p>没有更多了~</p>}
       <main>
         {posts.map(post => {
@@ -28,21 +43,21 @@ const PostAll: NextPage<IProps> = ({ posts, page, totalPage, total }) => {
             .toLocaleDateString()
             .replace(/\//g, '-'); // WHY?
           return (
-            <div key={post.id}>
+            <PostTitleItem key={post.id}>
               <Link href={`/posts/${post.id}`}>
                 <a>{post.title}</a>
               </Link>
-              <span> @{date}</span>
-            </div>
+              <Time>@{date}</Time>
+            </PostTitleItem>
           );
         })}
       </main>
-      <footer>{pager}</footer>
+      <Footer>{pager}</Footer>
     </>
   );
 };
 
-export default PostAll;
+export default PostList;
 
 const PER_PAGE = 10;
 
