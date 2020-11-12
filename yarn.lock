@@ -1286,6 +1286,11 @@
   resolved "https://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.164.tgz?cache=0&sync_timestamp=1604048859839&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Flodash%2Fdownload%2F%40types%2Flodash-4.14.164.tgz#52348bcf909ac7b4c1bcbeda5c23135176e5dfa0"
   integrity sha1-UjSLz5Cax7TBvL7aXCMTUXbl36A=
 
+"@types/marked@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/@types/marked/download/@types/marked-1.1.0.tgz#53509b5f127e0c05c19176fcf1d743a41e00ff19"
+  integrity sha1-U1CbXxJ+DAXBkXb88ddDpB4A/xk=
+
 "@types/md5@^2.2.1":
   version "2.2.1"
   resolved "https://registry.npm.taobao.org/@types/md5/download/@types/md5-2.2.1.tgz#0e2d65d8f6cc91aafbc9be5a4c08fee9250406ce"
