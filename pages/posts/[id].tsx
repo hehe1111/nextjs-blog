@@ -3,6 +3,7 @@ import { NextPage, GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { Post } from 'src/entity/Post';
 import styled from 'styled-components';
+import marked from 'marked';
 
 type IProps = {
   post: Post;
@@ -24,6 +25,9 @@ const PostContent = styled.article`
   @media (max-width: 800px) {
     padding: 0;
   }
+  &.markdown-body {
+    font-size: 24px;
+  }
 `;
 
 const ThePost: NextPage<IProps> = ({ post }) => {
@@ -39,7 +43,8 @@ const ThePost: NextPage<IProps> = ({ post }) => {
       <PostTitle>{post.title}</PostTitle>
       <PostTime>{date}</PostTime>
       <PostContent
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        dangerouslySetInnerHTML={{ __html: marked(post.content) }}
+        className="markdown-body"
       ></PostContent>
     </>
   );

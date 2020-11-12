@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import 'styles/global.css';
+import 'github-markdown-css';
 import styled from 'styled-components';
 
 const Container = styled.div`
