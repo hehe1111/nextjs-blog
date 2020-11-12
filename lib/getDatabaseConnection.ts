@@ -10,7 +10,11 @@ const promise = (async function () {
   const current = manager.has('default') && manager.get('default');
   current && (await current.close());
   // @ts-ignore
-  return createConnection({ ...config, entities: [Post, User, Comment] });
+  return createConnection({
+    ...config,
+    host: process.env.NODE_ENV === 'production' ? 'localhost' : config.host,
+    entities: [Post, User, Comment],
+  });
 })();
 
 const getDatabaseConnection = () => promise;
