@@ -5,6 +5,10 @@ import { Post } from 'src/entity/Post';
 import styled from 'styled-components';
 import marked from 'marked';
 import hljs from 'highlight.js';
+import Button from 'components/Button';
+import { useCallback } from 'react';
+import client from 'lib/client';
+import { useRouter } from 'next/router';
 
 // https://marked.js.org/using_advanced
 marked.setOptions({
@@ -30,6 +34,11 @@ const PostTitle = styled.h1`
   margin-top: 20px;
   text-align: center;
 `;
+const TimeAndActions = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const PostTime = styled.div`
   margin-top: 8px;
   font-size: 0.8em;
@@ -54,13 +63,33 @@ const ThePost: NextPage<IProps> = ({ post }) => {
     .toLocaleDateString()
     .replace(/\//g, '-'); // WHY?
 
+  const router = useRouter();
+  const onDelete = useCallback(() => {
+    client
+      .post('/api/v1/post/delete', { id: post.id })
+      .then(response => {
+        router.push('/posts/');
+        alert(response.data.message);
+      })
+      .catch(error => {
+        console.log('删除失败', JSON.stringify(error));
+        alert('删除失败');
+      });
+  }, []);
+
   return (
     <>
       <Head>
         <title>{post.title}</title>
       </Head>
       <PostTitle>{post.title}</PostTitle>
-      <PostTime>{date}</PostTime>
+      <TimeAndActions>
+        <PostTime>{date}</PostTime>
+        <Button className="blue">修改文章</Button>
+        <Button className="red" onClick={onDelete}>
+          删除文章
+        </Button>
+      </TimeAndActions>
       <PostContent
         dangerouslySetInnerHTML={{ __html: marked(post.content) }}
         className="markdown-body"
