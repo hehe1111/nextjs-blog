@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Post } from 'src/entity/Post';
 import { User } from 'src/entity/User';
 import styled from 'styled-components';
+import Button from 'components/Button';
 
 type IProps = {
   posts: Post[];
@@ -21,17 +22,6 @@ const Header = styled.header`
   align-items: center;
   > small {
     flex: 1;
-  }
-`;
-const Button = styled.button`
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #3eaf7c;
-  color: #ffff;
-  font-size: 16px;
-  &:hover {
-    box-shadow: 0 0 20px #ddd;
   }
 `;
 const PostTitleItem = styled.div`
@@ -67,7 +57,7 @@ const PostList: NextPage<IProps> = ({
         {user && (
           <Link href="/posts/create">
             <a>
-              <Button>新增文章</Button>
+              <Button className="green">新增文章</Button>
             </a>
           </Link>
         )}
