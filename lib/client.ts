@@ -11,7 +11,7 @@ client.interceptors.response.use(
         alert(error.response?.data?.message);
         break;
       case 500:
-        alert('服务器错误');
+        alert(error.response?.data?.message || '服务器错误');
         break;
     }
     return Promise.reject(error);
