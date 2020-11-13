@@ -22,6 +22,7 @@ const PostCreate: NextApiHandler = async (request, response) => {
   post.author = user;
   const connection = await getDatabaseConnection();
   await connection.manager.save(post);
+  response.statusCode = 200;
   response.json(post);
 };
 
