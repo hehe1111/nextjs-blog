@@ -21,10 +21,10 @@ const PostCreate: NextPage = () => {
   return (
     <>
       <Head>
-        <title>新增博客</title>
+        <title>新增文章</title>
       </Head>
 
-      <h1>新增博客</h1>
+      <h1>新增文章</h1>
 
       <form onSubmit={onSubmit}>
         <div>
