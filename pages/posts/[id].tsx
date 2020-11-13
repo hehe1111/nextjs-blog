@@ -42,8 +42,10 @@ const PostContent = styled.article`
   @media (max-width: 800px) {
     padding: 0;
   }
-  &.markdown-body {
-    font-size: 24px;
+  @media (min-width: 700px) {
+    &.markdown-body {
+      font-size: 24px;
+    }
   }
 `;
 
