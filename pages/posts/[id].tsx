@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { Post } from 'src/entity/Post';
 import styled from 'styled-components';
 import marked from 'marked';
+import client from 'lib/client';
 
 type IProps = {
   post: Post;
@@ -56,7 +57,22 @@ export const getServerSideProps = async (
   context: GetServerSidePropsContext<{ id: string }>
 ) => {
   const connection = await getDatabaseConnection();
-  const post = await connection.manager.findOne('Post', context.params?.id);
+  const post = await connection.manager.findOne<Post>(
+    'Post',
+    context.params?.id
+  );
+  try {
+    // https://docs.github.com/en/free-pro-team@latest/rest/reference/markdown#render-a-markdown-document
+    const { data } = await client({
+      method: 'POST',
+      url: 'https://api.github.com/markdown',
+      headers: { Accept: ' application/vnd.github.v3+json' },
+      data: { text: post.content },
+    });
+    post.content = data;
+  } catch (error) {
+    console.log('请求 github 接口报错', JSON.stringify(error));
+  }
   return {
     props: {
       post: JSON.parse(JSON.stringify(post)),
