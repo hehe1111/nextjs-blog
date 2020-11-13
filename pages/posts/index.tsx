@@ -36,7 +36,7 @@ const Button = styled.button`
 `;
 const PostTitleItem = styled.div`
   padding: 16px 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px dashed #ccc;
 `;
 const Time = styled.div`
   margin-top: 4px;
