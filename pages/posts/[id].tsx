@@ -2,6 +2,7 @@ import getDatabaseConnection from 'lib/getDatabaseConnection';
 import { NextPage, GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { Post } from 'src/entity/Post';
+import { User } from 'src/entity/User';
 import styled from 'styled-components';
 import marked from 'marked';
 import hljs from 'highlight.js';
@@ -9,6 +10,8 @@ import Button from 'components/Button';
 import { useCallback } from 'react';
 import client from 'lib/client';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { withSession } from 'lib/withSession';
 
 // https://marked.js.org/using_advanced
 marked.setOptions({
@@ -28,6 +31,7 @@ marked.setOptions({
 
 type IProps = {
   post: Post;
+  user: User | null;
 };
 
 const PostTitle = styled.h1`
@@ -38,6 +42,9 @@ const TimeAndActions = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  button {
+    margin-left: 16px;
+  }
 `;
 const PostTime = styled.div`
   margin-top: 8px;
@@ -58,7 +65,7 @@ const PostContent = styled.article`
   }
 `;
 
-const ThePost: NextPage<IProps> = ({ post }) => {
+const ThePost: NextPage<IProps> = ({ post, user }) => {
   const date = new Date(post.createdAt)
     .toLocaleDateString()
     .replace(/\//g, '-'); // WHY?
@@ -85,10 +92,18 @@ const ThePost: NextPage<IProps> = ({ post }) => {
       <PostTitle>{post.title}</PostTitle>
       <TimeAndActions>
         <PostTime>{date}</PostTime>
-        <Button className="blue">修改文章</Button>
-        <Button className="red" onClick={onDelete}>
-          删除文章
-        </Button>
+        {user && (
+          <>
+            <Link href={`/posts/${post.id}/edit`}>
+              <a>
+                <Button className="blue">修改文章</Button>
+              </a>
+            </Link>
+            <Button className="red" onClick={onDelete}>
+              删除文章
+            </Button>
+          </>
+        )}
       </TimeAndActions>
       <PostContent
         dangerouslySetInnerHTML={{ __html: marked(post.content) }}
@@ -100,17 +115,21 @@ const ThePost: NextPage<IProps> = ({ post }) => {
 
 export default ThePost;
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext<{ id: string }>
-) => {
-  const connection = await getDatabaseConnection();
-  const post = await connection.manager.findOne<Post>(
-    'Post',
-    context.params?.id
-  );
-  return {
-    props: {
-      post: JSON.parse(JSON.stringify(post)),
-    },
-  };
-};
+export const getServerSideProps = withSession(
+  // @ts-ignore
+  async (context: GetServerSidePropsContext<{ id: string }>) => {
+    const connection = await getDatabaseConnection();
+    const post = await connection.manager.findOne<Post>(
+      'Post',
+      context.params.id
+    );
+    // @ts-ignore
+    const user = context.req.session.get('currentUser') || null;
+    return {
+      props: {
+        post: JSON.parse(JSON.stringify(post)),
+        user,
+      },
+    };
+  }
+);
