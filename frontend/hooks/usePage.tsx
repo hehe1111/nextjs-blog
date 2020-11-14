@@ -30,7 +30,7 @@ const PageAnchor = styled.div`
 
 const usePage = ({ page, totalPage }: IProps) => {
   const numbers = generatePaginationNumberArray({ page, totalPage });
-  const view = (
+  return (
     <>
       {page <= totalPage && (
         <PageContainer>
@@ -62,7 +62,6 @@ const usePage = ({ page, totalPage }: IProps) => {
       )}
     </>
   );
-  return { view };
 };
 
 export default usePage;

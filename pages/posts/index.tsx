@@ -44,7 +44,7 @@ const PostList: NextPage<IProps> = ({
   total,
   user,
 }) => {
-  const { view: pager } = usePage({ page, totalPage });
+  const pager = usePage({ page, totalPage });
   return (
     <>
       <Head>
