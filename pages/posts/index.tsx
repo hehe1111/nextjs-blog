@@ -8,6 +8,7 @@ import { Post } from 'db/src/entity/Post';
 import { User } from 'db/src/entity/User';
 import styled from 'styled-components';
 import Button from 'frontend/components/Button';
+import PostDate from 'frontend/components/PostDate';
 
 type IProps = {
   posts: Post[];
@@ -27,11 +28,6 @@ const Header = styled.header`
 const PostTitleItem = styled.div`
   padding: 16px 0;
   border-bottom: 1px dashed #ccc;
-`;
-const Time = styled.div`
-  margin-top: 4px;
-  font-size: 0.8em;
-  color: #aaa;
 `;
 const Footer = styled.div`
   margin-top: 20px;
@@ -64,19 +60,14 @@ const PostList: NextPage<IProps> = ({
       </Header>
       {posts.length === 0 && <p>没有更多了~</p>}
       <main>
-        {posts.map(post => {
-          const date = new Date(post.createdAt)
-            .toLocaleDateString()
-            .replace(/\//g, '-'); // WHY?
-          return (
-            <PostTitleItem key={post.id}>
-              <Link href={`/posts/${post.id}`}>
-                <a>{post.title}</a>
-              </Link>
-              <Time>@{date}</Time>
-            </PostTitleItem>
-          );
-        })}
+        {posts.map(post => (
+          <PostTitleItem key={post.id}>
+            <Link href={`/posts/${post.id}`}>
+              <a>{post.title}</a>
+            </Link>
+            <PostDate date={post.createdAt} />
+          </PostTitleItem>
+        ))}
       </main>
       <Footer>{pager}</Footer>
     </>

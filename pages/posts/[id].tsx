@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import marked from 'marked';
 import hljs from 'highlight.js';
 import Button from 'frontend/components/Button';
+import PostDate from 'frontend/components/PostDate';
 import { useCallback } from 'react';
 import client from 'frontend/client';
 import { useRouter } from 'next/router';
@@ -46,12 +47,6 @@ const TimeAndActions = styled.div`
     margin-left: 16px;
   }
 `;
-const PostTime = styled.div`
-  margin-top: 8px;
-  font-size: 0.8em;
-  color: #aaa;
-  text-align: center;
-`;
 const PostContent = styled.article`
   padding: 0 2em;
   margin: 20px 0;
@@ -66,10 +61,6 @@ const PostContent = styled.article`
 `;
 
 const ThePost: NextPage<IProps> = ({ post, user }) => {
-  const date = new Date(post.createdAt)
-    .toLocaleDateString()
-    .replace(/\//g, '-'); // WHY?
-
   const router = useRouter();
   const onDelete = useCallback(() => {
     client
@@ -91,7 +82,7 @@ const ThePost: NextPage<IProps> = ({ post, user }) => {
       </Head>
       <PostTitle>{post.title}</PostTitle>
       <TimeAndActions>
-        <PostTime>{date}</PostTime>
+        <PostDate date={post.createdAt} />
         {user && (
           <>
             <Link href={`/posts/${post.id}/edit`}>
