@@ -18,6 +18,10 @@ type IProps = {
   user: User | null;
 };
 
+const Page = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
+`;
 const Header = styled.header`
   display: flex;
   align-items: center;
@@ -30,7 +34,7 @@ const PostTitleItem = styled.div`
   border-bottom: 1px dashed #ccc;
 `;
 const Footer = styled.div`
-  margin-top: 20px;
+  margin: 20px 0 40px 0;
 `;
 
 const PostList: NextPage<IProps> = ({
@@ -42,7 +46,7 @@ const PostList: NextPage<IProps> = ({
 }) => {
   const pager = usePage({ page, totalPage });
   return (
-    <>
+    <Page>
       <Head>
         <title>文章列表</title>
       </Head>
@@ -70,7 +74,7 @@ const PostList: NextPage<IProps> = ({
         ))}
       </main>
       <Footer>{pager}</Footer>
-    </>
+    </Page>
   );
 };
 

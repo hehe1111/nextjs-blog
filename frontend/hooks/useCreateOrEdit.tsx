@@ -13,13 +13,26 @@ type IProps = {
   type: '新增' | '修改';
 };
 
+const Page = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`;
 const Header = styled.header`
   color: #777;
+`;
+const Form = styled.form`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 `;
 const Row = styled.div`
   margin-top: 10px;
   display: flex;
   flex-direction: column;
+  &.flex1 {
+    flex: 1;
+  }
 `;
 const Label = styled.label`
   margin-bottom: 0.5em;
@@ -40,15 +53,13 @@ const Input = styled.input`
   }
 `;
 const EditAndDisplay = styled.div`
-  height: 300px;
+  flex: 1;
   display: flex;
   > * {
     width: calc(50% - 4px);
-    height: 100%;
-    padding: 8px;
+    padding: 16px 8px;
     border: 1px solid #999;
     border-radius: 8px;
-    overflow: auto;
   }
   > :nth-child(1) {
     margin-right: 4px;
@@ -68,7 +79,7 @@ const Textarea = styled.textarea`
 `;
 const SubmitButton = styled(Button)`
   width: 100%;
-  margin-top: 16px;
+  margin: 16px 0;
 `;
 
 const useCreateOrEdit = ({
@@ -90,15 +101,16 @@ const useCreateOrEdit = ({
     },
     [formData]
   );
+
   return (
-    <>
+    <Page>
       <Head>
         <title>{type}文章</title>
       </Head>
 
       <Header>{type}文章</Header>
 
-      <form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
         <Row>
           <Label htmlFor="title">标题</Label>
           <Input
@@ -112,7 +124,7 @@ const useCreateOrEdit = ({
           />
         </Row>
 
-        <Row>
+        <Row className="flex1">
           <Label htmlFor="content">内容</Label>
           <EditAndDisplay>
             <Textarea
@@ -127,13 +139,12 @@ const useCreateOrEdit = ({
             <Md string={formData.content} />
           </EditAndDisplay>
         </Row>
-        <div>
-          <SubmitButton type="submit" className="blue">
-            提交
-          </SubmitButton>
-        </div>
-      </form>
-    </>
+
+        <SubmitButton type="submit" className="blue">
+          提交
+        </SubmitButton>
+      </Form>
+    </Page>
   );
 };
 

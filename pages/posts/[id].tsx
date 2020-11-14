@@ -31,8 +31,9 @@ const TimeAndActions = styled.div`
   }
 `;
 const PostContent = styled(Md)`
+  max-width: 1000px;
   padding: 0 2em;
-  margin: 20px 0;
+  margin: 20px auto;
   @media (max-width: 800px) {
     padding: 0;
   }
