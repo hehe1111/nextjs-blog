@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "compile:src": "babel ./src/ --out-dir ./dist/ --extensions .ts,.tsx",
+    "compile:src": "babel ./db/src/ --out-dir ./db/dist/ --extensions .ts,.tsx",
     "dev": "concurrently \"next dev\" \"yarn compile:src --watch\"",
     "build": "next build",
     "start": "next start",
@@ -11,7 +11,7 @@
     "m:run": "typeorm migration:run",
     "m:revert": "typeorm migration:revert",
     "e:create": "typeorm entity:create --name",
-    "seed": "node ./dist/seed.js"
+    "seed": "node ./db/dist/seed.js"
   },
   "dependencies": {
     "axios": "^0.21.0",

@@ -1,13 +1,13 @@
-import usePage from 'hooks/usePage';
-import getDatabaseConnection from 'lib/getDatabaseConnection';
-import { withSession } from 'lib/withSession';
+import usePage from 'frontend/hooks/usePage';
+import getDatabaseConnection from 'backend/getDatabaseConnection';
+import { withSession } from 'backend/withSession';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Post } from 'src/entity/Post';
-import { User } from 'src/entity/User';
+import { Post } from 'db/src/entity/Post';
+import { User } from 'db/src/entity/User';
 import styled from 'styled-components';
-import Button from 'components/Button';
+import Button from 'frontend/components/Button';
 
 type IProps = {
   posts: Post[];
@@ -88,7 +88,6 @@ export default PostList;
 const PER_PAGE = 10;
 
 export const getServerSideProps: GetServerSideProps = withSession(
-  // @ts-ignore
   async context => {
     const { page: _page }: { page?: string } = context.query;
     let page = parseInt(_page || '1', 10);

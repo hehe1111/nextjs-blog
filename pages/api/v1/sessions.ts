@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next';
-import { withSession } from 'lib/withSession';
-import { User } from 'src/entity/User';
-import validateRequest from 'lib/validateRequest';
+import { withSession } from 'backend/withSession';
+import { User } from 'db/src/entity/User';
+import validateRequest from 'backend/validateRequest';
 
 const Sessions: NextApiHandler = async (request, response) => {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');

@@ -1,7 +1,7 @@
 import { NextApiHandler } from 'next';
-import { withSession } from 'lib/withSession';
-import getDatabaseConnection from 'lib/getDatabaseConnection';
-import validateRequest from 'lib/validateRequest';
+import { withSession } from 'backend/withSession';
+import getDatabaseConnection from 'backend/getDatabaseConnection';
+import validateRequest from 'backend/validateRequest';
 
 const PostDelete: NextApiHandler = async (request, response) => {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');

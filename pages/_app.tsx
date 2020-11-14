@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
-import 'styles/global.css';
+import styled from 'styled-components';
 import 'github-markdown-css';
 import 'highlight.js/styles/github.css';
-import styled from 'styled-components';
+import 'frontend/styles/global.css';
 
 const Container = styled.div`
   height: 100%;

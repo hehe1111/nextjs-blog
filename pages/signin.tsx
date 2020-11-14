@@ -1,9 +1,9 @@
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useCallback, useState } from 'react';
-import client from 'lib/client';
+import client from 'frontend/client';
 import { AxiosResponse } from 'axios';
-import { withSession } from 'lib/withSession';
+import { withSession } from 'backend/withSession';
 
 const SignIn: NextPage = () => {
   const [info, setInfo] = useState({ username: '', password: '' });

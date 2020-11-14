@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import { createConnection, getConnectionManager } from 'typeorm';
 import config from 'ormconfig';
-import { Post } from 'src/entity/Post';
-import { User } from 'src/entity/User';
-import { Comment } from 'src/entity/Comment';
+import { Post } from 'db/src/entity/Post';
+import { User } from 'db/src/entity/User';
+import { Comment } from 'db/src/entity/Comment';
 
 const promise = (async function () {
   const manager = getConnectionManager();

@@ -1,9 +1,9 @@
 import { GetServerSidePropsContext, NextPage } from 'next';
 import Head from 'next/head';
 import { useCallback, useState } from 'react';
-import client from 'lib/client';
-import getDatabaseConnection from 'lib/getDatabaseConnection';
-import { Post } from 'src/entity/Post';
+import client from 'frontend/client';
+import getDatabaseConnection from 'backend/getDatabaseConnection';
+import { Post } from 'db/src/entity/Post';
 
 type IProps = {
   post: Post;

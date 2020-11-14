@@ -25,12 +25,12 @@ export default {
       : 'blog_development',
   synchronize: false,
   logging: false,
-  entities: ['dist/entity/**/*.js'],
-  migrations: ['dist/migration/**/*.js'],
-  subscribers: ['dist/subscriber/**/*.js'],
+  entities: ['db/dist/entity/**/*.js'],
+  migrations: ['db/dist/migration/**/*.js'],
+  subscribers: ['db/dist/subscriber/**/*.js'],
   cli: {
-    entitiesDir: 'src/entity',
-    migrationsDir: 'src/migration',
-    subscribersDir: 'src/subscriber',
+    entitiesDir: 'db/src/entity',
+    migrationsDir: 'db/src/migration',
+    subscribersDir: 'db/src/subscriber',
   },
 };

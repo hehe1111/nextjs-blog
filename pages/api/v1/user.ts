@@ -1,7 +1,7 @@
-import getDatabaseConnection from 'lib/getDatabaseConnection';
-import validateRequest from 'lib/validateRequest';
+import getDatabaseConnection from 'backend/getDatabaseConnection';
+import validateRequest from 'backend/validateRequest';
 import { NextApiHandler } from 'next';
-import { User } from 'src/entity/User';
+import { User } from 'db/src/entity/User';
 
 const UserApi: NextApiHandler = async (request, response) => {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
