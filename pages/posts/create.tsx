@@ -11,6 +11,9 @@ const PostCreate: NextPage = () => {
   const onSubmit = useCallback(
     event => {
       event.preventDefault();
+      if (info.title === '' || info.content === '') {
+        return alert('标题和内容均不能为空');
+      }
       client.post('/api/v1/post/create', info).then(
         response => window.location.replace('/posts/'),
         error => console.log(error.response.data.message)

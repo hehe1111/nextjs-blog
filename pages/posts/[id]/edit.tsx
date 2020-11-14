@@ -18,6 +18,9 @@ const PostEdit: NextPage<IProps> = ({ post }) => {
   const onSubmit = useCallback(
     event => {
       event.preventDefault();
+      if (info.title === '' || info.content === '') {
+        return alert('标题和内容均不能为空');
+      }
       client.post('/api/v1/post/edit', info).then(
         response => {
           alert('修改成功');
