@@ -25,7 +25,6 @@ const useCreateOrEdit = ({
       }
       client.post(url, formData).then(onSuccess, (error: AxiosError) => {
         console.log(error.response.data.message);
-        alert(`${type}失败`);
       });
     },
     [formData]
