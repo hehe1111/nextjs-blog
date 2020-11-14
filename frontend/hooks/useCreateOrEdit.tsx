@@ -4,6 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import client from 'frontend/client';
 import styled from 'styled-components';
 import Button from 'frontend/components/Button';
+import Md from 'frontend/components/Md';
 
 type IProps = {
   initialFormData: { title: string; content: string; id?: number };
@@ -38,11 +39,25 @@ const Input = styled.input`
     border-color: #0170fe;
   }
 `;
-const Textarea = styled.textarea`
+const EditAndDisplay = styled.div`
   height: 300px;
-  padding: 8px;
-  border: 1px solid #999;
-  border-radius: 8px;
+  display: flex;
+  > * {
+    width: calc(50% - 4px);
+    height: 100%;
+    padding: 8px;
+    border: 1px solid #999;
+    border-radius: 8px;
+    overflow: auto;
+  }
+  > :nth-child(1) {
+    margin-right: 4px;
+  }
+  > :nth-child(2) {
+    margin-left: 4px;
+  }
+`;
+const Textarea = styled.textarea`
   font-size: 20px;
   line-height: 1.4;
   outline: none;
@@ -99,15 +114,18 @@ const useCreateOrEdit = ({
 
         <Row>
           <Label htmlFor="content">内容</Label>
-          <Textarea
-            id="content"
-            name="content"
-            placeholder="请输入内容"
-            value={formData.content}
-            onChange={event =>
-              setFormData({ ...formData, content: event.target.value })
-            }
-          />
+          <EditAndDisplay>
+            <Textarea
+              id="content"
+              name="content"
+              placeholder="请输入内容"
+              value={formData.content}
+              onChange={event =>
+                setFormData({ ...formData, content: event.target.value })
+              }
+            />
+            <Md string={formData.content} />
+          </EditAndDisplay>
         </Row>
         <div>
           <SubmitButton type="submit" className="blue">

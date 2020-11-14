@@ -3,8 +3,6 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import styled from 'styled-components';
-import marked from 'marked';
-import hljs from 'highlight.js';
 import { useCallback } from 'react';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
 import { withSession } from 'backend/withSession';
@@ -13,22 +11,7 @@ import { User } from 'db/src/entity/User';
 import Button from 'frontend/components/Button';
 import PostDate from 'frontend/components/PostDate';
 import client from 'frontend/client';
-
-// https://marked.js.org/using_advanced
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  highlight: (code, language) => {
-    const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
-    return hljs.highlight(validLanguage, code).value;
-  },
-  pedantic: false,
-  gfm: true,
-  breaks: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  xhtml: false,
-});
+import Md from 'frontend/components/Md';
 
 type IProps = {
   post: Post;
@@ -47,7 +30,7 @@ const TimeAndActions = styled.div`
     margin-left: 16px;
   }
 `;
-const PostContent = styled.article`
+const PostContent = styled(Md)`
   padding: 0 2em;
   margin: 20px 0;
   @media (max-width: 800px) {
@@ -96,10 +79,7 @@ const ThePost: NextPage<IProps> = ({ post, user }) => {
           </>
         )}
       </TimeAndActions>
-      <PostContent
-        dangerouslySetInnerHTML={{ __html: marked(post.content) }}
-        className="markdown-body"
-      ></PostContent>
+      <PostContent string={post.content} />
     </>
   );
 };
