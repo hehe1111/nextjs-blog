@@ -1,18 +1,18 @@
-import getDatabaseConnection from 'backend/getDatabaseConnection';
 import { NextPage, GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { Post } from 'db/src/entity/Post';
-import { User } from 'db/src/entity/User';
+import Link from 'next/link';
 import styled from 'styled-components';
 import marked from 'marked';
 import hljs from 'highlight.js';
+import { useCallback } from 'react';
+import getDatabaseConnection from 'backend/getDatabaseConnection';
+import { withSession } from 'backend/withSession';
+import { Post } from 'db/src/entity/Post';
+import { User } from 'db/src/entity/User';
 import Button from 'frontend/components/Button';
 import PostDate from 'frontend/components/PostDate';
-import { useCallback } from 'react';
 import client from 'frontend/client';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { withSession } from 'backend/withSession';
 
 // https://marked.js.org/using_advanced
 marked.setOptions({

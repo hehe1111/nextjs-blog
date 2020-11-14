@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { FormEvent, useCallback, useState } from 'react';
-import client from 'frontend/client';
 import { AxiosError, AxiosResponse } from 'axios';
+import client from 'frontend/client';
 
 type IProps = {
   initialFormData: { title: string; content: string; id?: number };

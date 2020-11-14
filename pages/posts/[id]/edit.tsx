@@ -1,8 +1,8 @@
 import { GetServerSidePropsContext, NextPage } from 'next';
+import { useRouter } from 'next/router';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
 import { Post } from 'db/src/entity/Post';
 import useCreateOrEdit from 'frontend/hooks/useCreateOrEdit';
-import { useRouter } from 'next/router';
 
 const PostEdit: NextPage<{ post: Post }> = ({ post }) => {
   const router = useRouter();

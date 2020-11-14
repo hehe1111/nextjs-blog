@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useCallback, useState } from 'react';
-import client from 'frontend/client';
 import { AxiosResponse } from 'axios';
+import client from 'frontend/client';
 
 const SignUp: NextPage = () => {
   const [info, setInfo] = useState({

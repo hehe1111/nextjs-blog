@@ -7,11 +7,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import md5 from 'md5';
+import omit from 'lodash/omit';
 import { Post } from './Post';
 import { Comment } from './Comment';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
-import md5 from 'md5';
-import omit from 'lodash/omit';
 
 @Entity('users')
 export class User {

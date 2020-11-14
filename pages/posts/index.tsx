@@ -1,12 +1,12 @@
-import usePage from 'frontend/hooks/usePage';
-import getDatabaseConnection from 'backend/getDatabaseConnection';
-import { withSession } from 'backend/withSession';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import styled from 'styled-components';
+import getDatabaseConnection from 'backend/getDatabaseConnection';
+import { withSession } from 'backend/withSession';
 import { Post } from 'db/src/entity/Post';
 import { User } from 'db/src/entity/User';
-import styled from 'styled-components';
+import usePage from 'frontend/hooks/usePage';
 import Button from 'frontend/components/Button';
 import PostDate from 'frontend/components/PostDate';
 

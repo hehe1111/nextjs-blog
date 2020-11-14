@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
-import useCreateOrEdit from 'frontend/hooks/useCreateOrEdit';
 import { useRouter } from 'next/router';
+import useCreateOrEdit from 'frontend/hooks/useCreateOrEdit';
 
 const PostCreate: NextPage = () => {
   const router = useRouter();
