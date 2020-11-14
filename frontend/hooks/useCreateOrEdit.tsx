@@ -117,6 +117,20 @@ const useCreateOrEdit = ({
     return () => window.removeEventListener('resize', flexPreview);
   }, []);
 
+  // TODO: 同步滚动：暂时只实现单向同步 textarea -> md
+  const onScrollTextArea = useCallback((event: UIEvent) => {
+    mdRef.current.scrollTop =
+      // @ts-ignore
+      (event.target.scrollTop / event.target.scrollHeight) *
+      mdRef.current.scrollHeight;
+  }, []);
+  // const onScrollMd = useCallback((event: UIEvent) => {
+  //   textAreaRef.current.scrollTop =
+  //     // @ts-ignore
+  //     (event.target.scrollTop / event.target.scrollHeight) *
+  //     textAreaRef.current.scrollHeight;
+  // }, []);
+
   return (
     <Page>
       <Head>
@@ -143,6 +157,8 @@ const useCreateOrEdit = ({
           <Label htmlFor="content">内容</Label>
           <EditAndDisplay>
             <Textarea
+              // @ts-ignore
+              onScroll={onScrollTextArea}
               ref={textAreaRef}
               id="content"
               name="content"
@@ -153,6 +169,7 @@ const useCreateOrEdit = ({
               }
             />
             <Md string={formData.content} ref={mdRef} />
+            {/* <Md string={formData.content} onScroll={onScrollMd} ref={mdRef} /> */}
           </EditAndDisplay>
         </Row>
 

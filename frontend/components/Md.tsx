@@ -21,14 +21,24 @@ marked.setOptions({
 // https://styled-components.com/docs/basics#styling-any-component
 const Md = forwardRef(
   (
-    { string, className }: { string: string; className?: string },
+    {
+      string,
+      onScroll = () => {},
+      className = '',
+    }: {
+      string: string;
+      onScroll?: (event: UIEvent) => void;
+      className?: string;
+    },
     ref?: { current: HTMLElement }
   ) => {
     return (
       <article
         ref={ref}
         dangerouslySetInnerHTML={{ __html: marked(string) }}
-        className={`markdown-body ${className ? className : ''}`}
+        className={`markdown-body ${className}`}
+        // @ts-ignore
+        onScroll={onScroll}
       ></article>
     );
   }
