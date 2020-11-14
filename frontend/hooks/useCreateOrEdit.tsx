@@ -2,6 +2,8 @@ import Head from 'next/head';
 import { FormEvent, useCallback, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import client from 'frontend/client';
+import styled from 'styled-components';
+import Button from 'frontend/components/Button';
 
 type IProps = {
   initialFormData: { title: string; content: string; id?: number };
@@ -9,6 +11,50 @@ type IProps = {
   onSuccess: (response: AxiosResponse) => void;
   type: '新增' | '修改';
 };
+
+const Header = styled.header`
+  color: #777;
+`;
+const Row = styled.div`
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+`;
+const Label = styled.label`
+  margin-bottom: 0.5em;
+  font-size: 16px;
+  color: #999;
+`;
+const Input = styled.input`
+  padding-left: 16px;
+  padding-right: 16px;
+  border: 1px solid #999;
+  border-radius: 24px;
+  font-size: 24px;
+  line-height: 2;
+  outline: none;
+  &:hover,
+  &:focus {
+    border-color: #0170fe;
+  }
+`;
+const Textarea = styled.textarea`
+  height: 300px;
+  padding: 8px;
+  border: 1px solid #999;
+  border-radius: 8px;
+  font-size: 20px;
+  line-height: 1.4;
+  outline: none;
+  &:hover,
+  &:focus {
+    border-color: #0170fe;
+  }
+`;
+const SubmitButton = styled(Button)`
+  width: 100%;
+  margin-top: 16px;
+`;
 
 const useCreateOrEdit = ({
   initialFormData,
@@ -35,35 +81,38 @@ const useCreateOrEdit = ({
         <title>{type}文章</title>
       </Head>
 
-      <h1>{type}文章</h1>
+      <Header>{type}文章</Header>
 
       <form onSubmit={onSubmit}>
-        <div>
-          <label>标题</label>
-          <input
+        <Row>
+          <Label htmlFor="title">标题</Label>
+          <Input
+            id="title"
             type="text"
+            placeholder="请输入标题"
             value={formData.title}
             onChange={event =>
               setFormData({ ...formData, title: event.target.value })
             }
           />
-        </div>
+        </Row>
 
-        <div>
-          <label>内容</label>
-          <textarea
-            name="content"
+        <Row>
+          <Label htmlFor="content">内容</Label>
+          <Textarea
             id="content"
-            cols={50}
-            rows={10}
+            name="content"
+            placeholder="请输入内容"
             value={formData.content}
             onChange={event =>
               setFormData({ ...formData, content: event.target.value })
             }
-          ></textarea>
-        </div>
+          />
+        </Row>
         <div>
-          <button type="submit">提交</button>
+          <SubmitButton type="submit" className="blue">
+            提交
+          </SubmitButton>
         </div>
       </form>
     </>
