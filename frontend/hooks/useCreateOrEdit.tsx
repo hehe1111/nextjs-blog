@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { FormEvent, useCallback, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import client from 'frontend/client';
 import styled from 'styled-components';
@@ -60,6 +60,9 @@ const EditAndDisplay = styled.div`
     padding: 16px 8px;
     border: 1px solid #999;
     border-radius: 8px;
+    overflow: auto;
+    font-size: 20px;
+    line-height: 1.4;
   }
   > :nth-child(1) {
     margin-right: 4px;
@@ -69,8 +72,6 @@ const EditAndDisplay = styled.div`
   }
 `;
 const Textarea = styled.textarea`
-  font-size: 20px;
-  line-height: 1.4;
   outline: none;
   &:hover,
   &:focus {
@@ -102,6 +103,20 @@ const useCreateOrEdit = ({
     [formData]
   );
 
+  // 让右边预览区域的高度在不超出屏幕的前提下撑满屏幕空白区域
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const mdRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const flexPreview = () => {
+      mdRef.current.style.display = 'none';
+      mdRef.current.style.height = `${textAreaRef.current.offsetHeight}px`;
+      mdRef.current.style.display = 'block';
+    };
+    flexPreview();
+    window.addEventListener('resize', flexPreview);
+    return () => window.removeEventListener('resize', flexPreview);
+  }, []);
+
   return (
     <Page>
       <Head>
@@ -128,6 +143,7 @@ const useCreateOrEdit = ({
           <Label htmlFor="content">内容</Label>
           <EditAndDisplay>
             <Textarea
+              ref={textAreaRef}
               id="content"
               name="content"
               placeholder="请输入内容"
@@ -136,7 +152,7 @@ const useCreateOrEdit = ({
                 setFormData({ ...formData, content: event.target.value })
               }
             />
-            <Md string={formData.content} />
+            <Md string={formData.content} ref={mdRef} />
           </EditAndDisplay>
         </Row>
 

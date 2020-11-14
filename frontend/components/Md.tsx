@@ -1,5 +1,6 @@
 import marked from 'marked';
 import hljs from 'highlight.js';
+import { forwardRef } from 'react';
 
 // https://marked.js.org/using_advanced
 marked.setOptions({
@@ -18,13 +19,19 @@ marked.setOptions({
 });
 
 // https://styled-components.com/docs/basics#styling-any-component
-const Md = ({ string, className }: { string: string; className?: string }) => {
-  return (
-    <article
-      dangerouslySetInnerHTML={{ __html: marked(string) }}
-      className={`markdown-body ${className}`}
-    ></article>
-  );
-};
+const Md = forwardRef(
+  (
+    { string, className }: { string: string; className?: string },
+    ref?: { current: HTMLElement }
+  ) => {
+    return (
+      <article
+        ref={ref}
+        dangerouslySetInnerHTML={{ __html: marked(string) }}
+        className={`markdown-body ${className ? className : ''}`}
+      ></article>
+    );
+  }
+);
 
 export default Md;
