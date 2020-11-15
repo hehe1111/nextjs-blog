@@ -19,7 +19,7 @@ type IProps = {
 };
 
 const PostTitle = styled.h1`
-  margin-top: 20px;
+  margin: 20px 0;
   text-align: center;
 `;
 const TimeAndActions = styled.div`
@@ -32,8 +32,7 @@ const TimeAndActions = styled.div`
 `;
 const PostContent = styled(Md)`
   max-width: 1000px;
-  padding: 0 2em;
-  margin: 20px auto;
+  margin: 40px auto 100px auto;
   @media (max-width: 800px) {
     padding: 0;
   }

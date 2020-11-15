@@ -23,6 +23,7 @@ const Page = styled.div`
   margin: 0 auto;
 `;
 const Header = styled.header`
+  margin-top: 40px;
   display: flex;
   align-items: center;
   > small {
@@ -32,6 +33,7 @@ const Header = styled.header`
 const PostTitleItem = styled.div`
   padding: 16px 0;
   border-bottom: 1px dashed #ccc;
+  font-size: 24px;
 `;
 const Footer = styled.div`
   margin: 20px 0 40px 0;
@@ -51,7 +53,6 @@ const PostList: NextPage<IProps> = ({
         <title>文章列表</title>
       </Head>
 
-      <h1>文章列表</h1>
       <Header>
         <small>（共 {total} 篇）</small>
         {user && (
