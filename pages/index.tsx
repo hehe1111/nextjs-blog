@@ -10,7 +10,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <Link href={`/posts/`}>
+        <Link href="/posts/">
           <a>查看文章列表</a>
         </Link>
       </main>
