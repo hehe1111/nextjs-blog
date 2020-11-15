@@ -70,11 +70,11 @@ const ThePost: NextPage<IProps> = ({ post, user }) => {
           <>
             <Link href={`/posts/${post.id}/edit`}>
               <a>
-                <Button className="blue">修改文章</Button>
+                <Button className="blue">修改</Button>
               </a>
             </Link>
             <Button className="red" onClick={onDelete}>
-              删除文章
+              删除
             </Button>
           </>
         )}
