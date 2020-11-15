@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -83,7 +83,7 @@ export default PostList;
 const PER_PAGE = 10;
 
 export const getServerSideProps: GetServerSideProps = withSession(
-  async context => {
+  async (context: GetServerSidePropsContext) => {
     const { page: _page }: { page?: string } = context.query;
     let page = parseInt(_page || '1', 10);
     (!page || page <= 0) && (page = 1);

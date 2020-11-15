@@ -1,4 +1,4 @@
-import { NextPage, GetServerSidePropsContext } from 'next';
+import { NextPage, GetServerSidePropsContext, GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -87,8 +87,7 @@ const ThePost: NextPage<IProps> = ({ post, user }) => {
 
 export default ThePost;
 
-export const getServerSideProps = withSession(
-  // @ts-ignore
+export const getServerSideProps: GetServerSideProps = withSession(
   async (context: GetServerSidePropsContext<{ id: string }>) => {
     const connection = await getDatabaseConnection();
     const post = await connection.manager.findOne<Post>(
