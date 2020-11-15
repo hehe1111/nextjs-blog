@@ -34,6 +34,9 @@ const PostTitleItem = styled.div`
   padding: 16px 0;
   border-bottom: 1px dashed #ccc;
   font-size: 24px;
+  &:hover {
+    background-color: #f6f8fa;
+  }
 `;
 const Footer = styled.div`
   margin: 20px 0 40px 0;
