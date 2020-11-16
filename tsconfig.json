@@ -72,6 +72,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "ormconfig.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "ormconfig.js"],
   "exclude": ["node_modules"]
 }

@@ -13,7 +13,7 @@ import config from 'ormconfig';
 createConnection(cofig);
 */
 
-export default {
+module.exports = {
   type: 'postgres',
   host: process.env.NODE_ENV === 'production' ? 'localhost' : '192.168.99.100',
   port: 5432,
