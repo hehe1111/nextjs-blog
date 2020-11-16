@@ -35,6 +35,7 @@ const Md = forwardRef(
         ref={ref}
         dangerouslySetInnerHTML={{ __html: marked(string) }}
         className={`markdown-body ${className}`}
+        // @ts-ignore
         onScroll={onScroll}
       ></article>
     );
