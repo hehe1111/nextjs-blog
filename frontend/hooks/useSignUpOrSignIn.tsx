@@ -35,7 +35,8 @@ const useSignUpOrSignIn = ({
       client.post(url, formData).then(
         () => {
           alert(`${type}成功`);
-          router.push(successRoute);
+          const { redirect } = router.query;
+          router.push(redirect ? (redirect as string) : successRoute);
         },
         error => {
           if (error.response) {

@@ -1,39 +1,40 @@
 import { GetServerSidePropsContext, NextPage } from 'next';
 import { useRouter } from 'next/router';
-import getDatabaseConnection from 'backend/getDatabaseConnection';
 import { Post } from 'db/src/entity/Post';
+import { User } from 'db/src/entity/User';
+import getDatabaseConnection from 'backend/getDatabaseConnection';
+import { withSession } from 'backend/withSession';
 import useCreateOrEdit from 'frontend/hooks/useCreateOrEdit';
 
-const PostEdit: NextPage<{ post: Post }> = ({ post }) => {
+const PostEdit: NextPage<{ post: Post; user: User }> = ({ post, user }) => {
   const router = useRouter();
   return useCreateOrEdit({
+    user,
     initialFormData: {
       title: post.title || '',
       content: post.content || '',
       id: post.id,
     },
     url: '/api/v1/post/edit',
-    onSuccess: () => {
-      alert('修改成功');
-      router.replace(`/posts/${post.id}`);
-    },
     type: '修改',
   });
 };
 
 export default PostEdit;
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext<{ id: string }>
-) => {
-  const connection = await getDatabaseConnection();
-  const post = await connection.manager.findOne<Post>(
-    'Post',
-    context.params.id
-  );
-  return {
-    props: {
-      post: JSON.parse(JSON.stringify(post)),
-    },
-  };
-};
+export const getServerSideProps = withSession(
+  async (context: GetServerSidePropsContext<{ id: string }>) => {
+    const connection = await getDatabaseConnection();
+    const post = await connection.manager.findOne<Post>(
+      'Post',
+      context.params.id
+    );
+    return {
+      props: {
+        post: JSON.parse(JSON.stringify(post)),
+        // @ts-ignore
+        user: context.req.session.get('currentUser') || null,
+      },
+    };
+  }
+);

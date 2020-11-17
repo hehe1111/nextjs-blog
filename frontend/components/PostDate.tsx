@@ -10,8 +10,18 @@ const PostDateElement = styled.div`
 const formatedDate = (time: ITime): string =>
   new Date(time).toLocaleDateString().replace(/\//g, '-'); // WHY?
 
-const PostDate = ({ date }: { date: ITime }) => {
-  return <PostDateElement>{formatedDate(date)}</PostDateElement>;
+const PostDate = ({
+  date,
+  className = '',
+}: {
+  date: ITime;
+  className?: string;
+}) => {
+  return (
+    <PostDateElement className={className}>
+      {formatedDate(date)}
+    </PostDateElement>
+  );
 };
 
 export default PostDate;

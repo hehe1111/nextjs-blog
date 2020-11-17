@@ -1,16 +1,18 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
-import client from 'frontend/client';
 import styled from 'styled-components';
+import { User } from 'db/src/entity/User';
+import client from 'frontend/client';
 import Button from 'frontend/components/Button';
 import Md from 'frontend/components/Md';
 import { leftEscape } from 'frontend/utils';
 
 type IProps = {
+  user: User;
   initialFormData: { title: string; content: string; id?: number };
   url: string;
-  onSuccess: (response: AxiosResponse) => void;
   type: '新增' | '修改';
 };
 
@@ -85,11 +87,19 @@ const SubmitButton = styled(Button)`
 `;
 
 const useCreateOrEdit = ({
+  user,
   initialFormData,
   url,
-  onSuccess,
   type,
 }: IProps): JSX.Element => {
+  const router = useRouter();
+  useEffect(() => {
+    !user &&
+      router.push(
+        `/admin/sign-in?redirect=${encodeURIComponent(router.asPath)}`
+      );
+  }, []);
+
   const [formData, setFormData] = useState(initialFormData);
   const onSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
@@ -97,9 +107,15 @@ const useCreateOrEdit = ({
       if (formData.title === '' || formData.content === '') {
         return alert('标题和内容均不能为空');
       }
-      client.post(url, formData).then(onSuccess, (error: AxiosError) => {
-        console.log(error.response.data.message);
-      });
+      client.post(url, formData).then(
+        () => {
+          alert(`${type}成功`);
+          router.push(`/admin`);
+        },
+        (error: AxiosError) => {
+          console.log(error.response.data.message);
+        }
+      );
     },
     [formData]
   );
@@ -109,6 +125,9 @@ const useCreateOrEdit = ({
   const mdRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const flexPreview = () => {
+      if (!textAreaRef || !mdRef || !textAreaRef.current || !mdRef.current) {
+        return;
+      }
       mdRef.current.style.display = 'none';
       mdRef.current.style.height = `${textAreaRef.current.offsetHeight}px`;
       mdRef.current.style.display = 'block';
@@ -120,6 +139,7 @@ const useCreateOrEdit = ({
 
   // TODO: 同步滚动：暂时只实现单向同步 textarea -> md
   const onScrollTextArea = useCallback((event: UIEvent) => {
+    if (!textAreaRef || !mdRef) return;
     mdRef.current.scrollTop =
       // @ts-ignore
       (event.target.scrollTop / event.target.scrollHeight) *
@@ -132,7 +152,9 @@ const useCreateOrEdit = ({
   //     textAreaRef.current.scrollHeight;
   // }, []);
 
-  return (
+  return !user ? (
+    <>请先登录</>
+  ) : (
     <Page>
       <Head>
         <title>{type}文章</title>
