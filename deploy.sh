@@ -6,10 +6,8 @@ git pull &&
 yarn --production=false &&
 rm -rf ./.next/ &&
 yarn build &&
-git apply 'db-src-entity-User.ts.patch' &&
 yarn compile:src &&
 yarn m:run &&
-git reset --hard HEAD &&
 docker build -t hehe1111/nextjs-blog . &&
 docker kill nextjs-blog
 docker rm nextjs-blog
