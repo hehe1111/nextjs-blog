@@ -1,5 +1,5 @@
 echo '=== Start deploy ==='
-docker container start postgresql1 &&
+docker container start postgresql1 nginx1 &&
 cd /home/blog/app/nextjs-blog &&
 git reset --hard HEAD &&
 git pull &&
