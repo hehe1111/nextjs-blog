@@ -93,12 +93,12 @@ export const getServerSideProps: GetServerSideProps = withSession(
       'Post',
       context.params.id
     );
-    // @ts-ignore
-    const user = context.req.session.get('currentUser') || null;
+
     return {
       props: {
         post: JSON.parse(JSON.stringify(post)),
-        user,
+        // @ts-ignore
+        user: context.req.session.get('currentUser') || null,
       },
     };
   }

@@ -100,16 +100,14 @@ export const getServerSideProps: GetServerSideProps = withSession(
       skip: PER_PAGE * (page - 1),
     });
 
-    // @ts-ignore
-    const user = context.req.session.get('currentUser') || null;
-
     return {
       props: {
         posts: JSON.parse(JSON.stringify(posts)),
         page,
         totalPage: Math.ceil(total / PER_PAGE),
         total,
-        user,
+        // @ts-ignore
+        user: context.req.session.get('currentUser') || null,
       },
     };
   }
