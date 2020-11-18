@@ -4,8 +4,8 @@ import { Post } from 'db/src/entity/Post';
 import { Comment } from 'db/src/entity/Comment';
 import Button from 'frontend/components/Button';
 import { default as _Input } from 'frontend/components/Input';
-import { escape } from 'frontend/utils';
 import client from 'frontend/client';
+import { escape, formattedDate, formattedTime } from 'frontend/utils';
 
 type IProps = { post: Post };
 type IComment = { comment: Comment; replies: Comment[] };
@@ -79,8 +79,18 @@ const CommentRow = styled.div`
   padding-top: ${rowPadding};
   word-break: break-all;
 `;
+const CommentUsernameAndTime = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const CommentUsername = styled.span`
   color: #f00;
+`;
+const CommentTime = styled.time`
+  flex: 1;
+  color: #ccc;
+  text-align: right;
+  white-space: nowrap;
 `;
 const CommentContent = styled.div`
   padding-top: 10px;
@@ -188,21 +198,31 @@ const CommentsArea = ({ post }: IProps) => {
       ) : (
         Object.keys(_comments).map(id => {
           const {
-            comment: { username, content },
+            comment: { username, content, createdAt },
             replies,
           } = _comments[id] as IComment;
           return (
             <CommentRow key={id}>
-              <CommentUsername>{username}</CommentUsername>
+              <CommentUsernameAndTime>
+                <CommentUsername>{username}</CommentUsername>
+                <CommentTime>
+                  {formattedDate(createdAt)}{' '}
+                  {formattedTime({ time: createdAt })}
+                </CommentTime>
+              </CommentUsernameAndTime>
               <CommentContent>{content}</CommentContent>
               <CommentReplies>
                 {replies.map(r => (
                   <CommentRow key={r.id}>
-                    <div>
+                    <CommentUsernameAndTime>
                       <CommentUsername>{r.username}</CommentUsername>
                       <span> 回复 </span>
                       <CommentUsername>{r.replyTo}</CommentUsername>
-                    </div>
+                      <CommentTime>
+                        {formattedDate(r.createdAt)}{' '}
+                        {formattedTime({ time: r.createdAt })}
+                      </CommentTime>
+                    </CommentUsernameAndTime>
                     <CommentContent>{r.content}</CommentContent>
                   </CommentRow>
                 ))}

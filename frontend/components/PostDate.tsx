@@ -1,14 +1,10 @@
 import styled from 'styled-components';
-
-type ITime = number | string | Date;
+import { formattedDate, ITime } from 'frontend/utils';
 
 const PostDateElement = styled.div`
   font-size: 16px;
   color: #bbb;
 `;
-
-const formatedDate = (time: ITime): string =>
-  new Date(time).toLocaleDateString().replace(/\//g, '-'); // WHY?
 
 const PostDate = ({
   date,
@@ -19,7 +15,7 @@ const PostDate = ({
 }) => {
   return (
     <PostDateElement className={className}>
-      {formatedDate(date)}
+      {formattedDate(date)}
     </PostDateElement>
   );
 };
