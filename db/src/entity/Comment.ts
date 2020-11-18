@@ -3,27 +3,31 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from './User';
-import { Comment } from './Comment';
+import { Post } from './Post';
 
-@Entity('posts')
-export class Post {
+@Entity('comments')
+export class Comment {
   @PrimaryGeneratedColumn('increment')
   id: number;
+  @Column('int')
+  postId: number;
+  @Column('int')
+  sourceCommentId: number;
   @Column('varchar')
-  title: string;
+  replyTo: string;
+  @Column('varchar')
+  username: string;
+  @Column('varchar')
+  email: string;
   @Column('text')
   content: string;
   @CreateDateColumn()
   createdAt: Date;
   @UpdateDateColumn()
   updatedAt: Date;
-  @ManyToOne('User', 'posts')
-  author: User;
-  @OneToMany('Comment', 'post')
-  comments: Comment[];
+  @ManyToOne('Post', 'comments')
+  post: Post;
 }
