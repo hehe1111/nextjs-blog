@@ -14,11 +14,9 @@ var _Post = require("./entity/Post");
 
 var _User = require("./entity/User");
 
-var _Comment = require("./entity/Comment");
-
 (0, _typeorm.createConnection)().then( /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(connection) {
-    var manager, users, user, post, comment, posts, _user, comments, _user2, _post;
+    var manager, users, user, post, posts, _user;
 
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
@@ -68,41 +66,12 @@ var _Comment = require("./entity/Comment");
 
           case 23:
             _context.next = 25;
-            return manager.find(_Comment.Comment);
-
-          case 25:
-            comments = _context.sent;
-
-            if (comments.length) {
-              _context.next = 39;
-              break;
-            }
-
-            comment = new _Comment.Comment();
-            _context.next = 30;
-            return manager.findOne(_User.User);
-
-          case 30:
-            _user2 = _context.sent;
-            comment.user = _user2;
-            _context.next = 34;
-            return manager.findOne(_Post.Post);
-
-          case 34:
-            _post = _context.sent;
-            comment.post = _post;
-            comment.content = 'This is a comment.';
-            _context.next = 39;
-            return manager.save(comment);
-
-          case 39:
-            _context.next = 41;
             return connection.close();
 
-          case 41:
+          case 25:
             console.log('SEED DONE!');
 
-          case 42:
+          case 26:
           case "end":
             return _context.stop();
         }

@@ -10,7 +10,6 @@ import {
 import md5 from 'md5';
 import omit from 'lodash/omit';
 import { Post } from './Post';
-import { Comment } from './Comment';
 
 @Entity('users')
 export class User {
@@ -28,8 +27,6 @@ export class User {
   // https://github.com/typeorm/typeorm/issues/4190
   @OneToMany('Post', 'author')
   posts: Post[];
-  @OneToMany('Comment', 'user')
-  comments: Comment[];
 
   // 只是声明了实例属性及其类型，未赋值，所以用冒号
   password: string;
