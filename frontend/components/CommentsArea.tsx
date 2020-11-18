@@ -67,8 +67,12 @@ const Textarea = styled.textarea`
   }
 `;
 const Submit = styled.div`
-  margin-top: ${rowMargin};
-  margin-left: calc(${labelWidth} + ${gutter});
+  margin: ${rowMargin} 0 0 calc(${labelWidth} + ${gutter});
+`;
+const ErrorTip = styled.span`
+  margin-left: 8px;
+  font-size: 16px;
+  color: #f00;
 `;
 const rowPadding = '30px';
 const CommentRow = styled.div`
@@ -104,19 +108,20 @@ const CommentsArea = ({ post }: IProps) => {
     content: '',
   };
   const [formData, setFormData] = useState<IFormData>(initialFormData);
-  const [errors, setErrors] = useState('');
+  const [error, setError] = useState('');
   const onSubmit = useCallback(
     event => {
       event.preventDefault();
       if (formData.username === '') {
-        return setErrors('用户名不能为空');
+        return setError('用户名不能为空');
       }
       if (formData.email === '') {
-        return setErrors('邮箱不能为空');
+        return setError('邮箱不能为空');
       }
       if (formData.content === '') {
-        return setErrors('内容不能为空');
+        return setError('内容不能为空');
       }
+      error && setError('');
       const _formData = {} as IFormDataFull;
       Object.keys(formData).map(k => {
         _formData[k] = escape(formData[k].trim());
@@ -174,7 +179,7 @@ const CommentsArea = ({ post }: IProps) => {
         </FormRow>
         <Submit>
           <Button className="blue">提交</Button>
-          {errors && <span>{errors}</span>}
+          {error && <ErrorTip>{error}</ErrorTip>}
         </Submit>
       </Form>
 
