@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import styled from 'styled-components';
 import { User } from 'db/src/entity/User';
 import client from 'frontend/client';
 import Button from 'frontend/components/Button';
+import Input from 'frontend/components/Input';
 import Md from 'frontend/components/Md';
 import { leftEscape } from 'frontend/utils';
 
@@ -42,19 +43,6 @@ const Label = styled.label`
   font-size: 16px;
   color: #999;
 `;
-const Input = styled.input`
-  padding-left: 16px;
-  padding-right: 16px;
-  border: 1px solid #999;
-  border-radius: 24px;
-  font-size: 24px;
-  line-height: 2;
-  outline: none;
-  &:hover,
-  &:focus {
-    border-color: #0170fe;
-  }
-`;
 const EditAndDisplay = styled.div`
   flex: 1;
   display: flex;
@@ -62,7 +50,7 @@ const EditAndDisplay = styled.div`
     width: calc(50% - 4px);
     padding: 16px 8px;
     border: 1px solid #999;
-    border-radius: 8px;
+    border-radius: 4px;
     overflow: auto;
     font-size: 20px;
     line-height: 1.4;
