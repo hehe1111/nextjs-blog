@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { AxiosResponse } from 'axios';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useCallback, useEffect } from 'react';
 import { Post } from 'db/src/entity/Post';
 import { User } from 'db/src/entity/User';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
@@ -26,14 +26,33 @@ interface ICommonProps extends IProps {
   children?: ReactNode;
 }
 
+const ExitButton = styled(Button)`
+  margin-left: 10px;
+`;
+
 const PostList: NextPage<IProps> = props => {
+  const router = useRouter();
+  const onExit = useCallback(() => {
+    client
+      .post('/api/v1/sign-out')
+      .then(response => {
+        alert(response.data.message);
+        router.push('/posts');
+      })
+      .catch(error => console.log(error));
+  }, []);
   return (
     <PostListCommon {...props} isAdminPage={true}>
-      <Link href="/posts/create">
-        <a>
-          <Button className="green">新增</Button>
-        </a>
-      </Link>
+      <>
+        <Link href="/posts/create">
+          <a>
+            <Button className="green">新增</Button>
+          </a>
+        </Link>
+        <ExitButton className="red" onClick={onExit}>
+          退出
+        </ExitButton>
+      </>
       {EditAndDelete}
     </PostListCommon>
   );
