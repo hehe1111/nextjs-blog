@@ -25,7 +25,7 @@ const labelWidth = '4em';
 const gutter = '8px';
 const rowMargin = '16px';
 const Form = styled.form`
-  margin-top: 100px;
+  margin: 100px 0 20px 0;
   padding: 0 ${rowMargin} ${rowMargin} 0;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -178,30 +178,34 @@ const CommentsArea = ({ post }: IProps) => {
         </Submit>
       </Form>
 
-      {Object.keys(_comments).map(id => {
-        const {
-          comment: { username, content },
-          replies,
-        } = _comments[id] as IComment;
-        return (
-          <CommentRow key={id}>
-            <CommentUsername>{username}</CommentUsername>
-            <CommentContent>{content}</CommentContent>
-            <CommentReplies>
-              {replies.map(r => (
-                <CommentRow key={r.id}>
-                  <div>
-                    <CommentUsername>{r.username}</CommentUsername>
-                    <span> 回复 </span>
-                    <CommentUsername>{r.replyTo}</CommentUsername>
-                  </div>
-                  <CommentContent>{r.content}</CommentContent>
-                </CommentRow>
-              ))}
-            </CommentReplies>
-          </CommentRow>
-        );
-      })}
+      {!comments.length ? (
+        <>暂无评论~</>
+      ) : (
+        Object.keys(_comments).map(id => {
+          const {
+            comment: { username, content },
+            replies,
+          } = _comments[id] as IComment;
+          return (
+            <CommentRow key={id}>
+              <CommentUsername>{username}</CommentUsername>
+              <CommentContent>{content}</CommentContent>
+              <CommentReplies>
+                {replies.map(r => (
+                  <CommentRow key={r.id}>
+                    <div>
+                      <CommentUsername>{r.username}</CommentUsername>
+                      <span> 回复 </span>
+                      <CommentUsername>{r.replyTo}</CommentUsername>
+                    </div>
+                    <CommentContent>{r.content}</CommentContent>
+                  </CommentRow>
+                ))}
+              </CommentReplies>
+            </CommentRow>
+          );
+        })
+      )}
     </>
   );
 };
