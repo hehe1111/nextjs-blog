@@ -207,6 +207,7 @@ const CommentsArea = ({ post }: IProps) => {
           return (
             <CommentRow key={id}>
               <Name>{username}</Name>
+              <span>：</span>
               <Content>
                 <p>{content}</p>
                 <Time>
@@ -220,6 +221,7 @@ const CommentsArea = ({ post }: IProps) => {
                     <Name>{r.username}</Name>
                     <span> 回复 </span>
                     <Name>{r.replyTo}</Name>
+                    <span>：</span>
                     <Content>
                       <p>{r.content}</p>
                       <Time>
