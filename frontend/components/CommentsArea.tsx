@@ -87,29 +87,9 @@ const ReplyTo = styled.div`
     padding-left: 16px;
   }
 `;
-const rowPadding = '30px';
-const CommentRow = styled.div`
-  padding-top: ${rowPadding};
-  word-break: break-all;
-`;
-const Name = styled.span`
-  color: #f00;
-`;
-const Replies = styled.div`
-  padding-left: 2em;
-`;
 
 const CommentsArea = ({ post }: IProps) => {
   const [comments, setComments] = useState(post.comments);
-  const formatComments: IComments = {};
-  comments.map(c => {
-    if (c.replyTo) {
-      formatComments[c.sourceCommentId].replies.push(c);
-    } else {
-      formatComments[c.id] = { comment: c, replies: [] };
-    }
-  });
-
   const initialFormData = { username: '', email: '', content: '' };
   const [formData, setFormData] = useState<IFormData>(initialFormData);
   const [error, setError] = useState('');
@@ -200,6 +180,39 @@ const CommentsArea = ({ post }: IProps) => {
         </Submit>
       </Form>
 
+      <CommentsDisplay
+        comments={comments}
+        setReply={setReply}
+        scrollToForm={scrollToForm}
+      />
+    </Area>
+  );
+};
+
+export default CommentsArea;
+
+const rowPadding = '30px';
+const CommentRow = styled.div`
+  padding-top: ${rowPadding};
+  word-break: break-all;
+`;
+const Name = styled.span`
+  color: #f00;
+`;
+const Replies = styled.div`
+  padding-left: 2em;
+`;
+function CommentsDisplay({ comments, setReply, scrollToForm }) {
+  const formatComments: IComments = {};
+  comments.map((c: Comment) => {
+    if (c.replyTo) {
+      formatComments[c.sourceCommentId].replies.push(c);
+    } else {
+      formatComments[c.id] = { comment: c, replies: [] };
+    }
+  });
+  return (
+    <>
       <div>评论（{comments.length}）</div>
       {Object.keys(formatComments).map(id => {
         const { comment, replies } = formatComments[id] as IComment;
@@ -231,11 +244,9 @@ const CommentsArea = ({ post }: IProps) => {
           </CommentRow>
         );
       })}
-    </Area>
+    </>
   );
-};
-
-export default CommentsArea;
+}
 
 const ContentRowElement = styled.div`
   padding-top: 8px;
