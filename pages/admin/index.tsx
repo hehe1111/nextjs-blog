@@ -134,8 +134,8 @@ export function PostListCommon({
 }: ICommonProps) {
   const router = useRouter();
   useEffect(() => {
-    if (!isAdminPage) return;
-    !user &&
+    isAdminPage &&
+      !user &&
       router.push(
         `/admin/sign-in?redirect=${encodeURIComponent(router.asPath)}`
       );
