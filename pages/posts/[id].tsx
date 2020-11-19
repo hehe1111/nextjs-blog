@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
 import { withSession } from 'backend/withSession';
 import { Post } from 'db/src/entity/Post';
-import { default as _PostDate } from 'frontend/components/PostDate';
+import PostDate from 'frontend/components/PostDate';
 import Md from 'frontend/components/Md';
 import CommentsArea from 'frontend/components/CommentsArea';
 
@@ -12,8 +12,15 @@ const PostTitle = styled.h1`
   margin: 20px 0;
   text-align: center;
 `;
-const PostDate = styled(_PostDate)`
-  text-align: center;
+const PostInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #bbb;
+  > * {
+    margin: 0 10px;
+  }
 `;
 const ContentAndComments = styled.div`
   max-width: 1000px;
@@ -28,7 +35,10 @@ const ThePost: NextPage<{ post: Post }> = ({ post }) => {
       </Head>
 
       <PostTitle>{post.title}</PostTitle>
-      <PostDate date={post.createdAt} />
+      <PostInfo>
+        <PostDate date={post.createdAt} />
+        <span>字数：{post.content.length}</span>
+      </PostInfo>
       <ContentAndComments>
         <Md string={post.content} />
         <CommentsArea post={post} />
