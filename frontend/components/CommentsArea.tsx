@@ -191,9 +191,8 @@ const CommentsArea = ({ post }: IProps) => {
 
 export default CommentsArea;
 
-const rowPadding = '30px';
 const CommentRow = styled.div`
-  padding-top: ${rowPadding};
+  padding-top: 30px;
   word-break: break-all;
 `;
 export const Name = styled.span`
@@ -250,7 +249,7 @@ function CommentsDisplay({ comments, setReply, scrollToForm }) {
 
 const ContentRowElement = styled.div`
   padding-top: 8px;
-  padding-bottom: ${rowPadding};
+  padding-bottom: 4px;
   border-bottom: 1px dashed #ddd;
   position: relative;
 `;
