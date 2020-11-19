@@ -13,31 +13,51 @@ export const escape = (str: string): string => {
   return str;
 };
 
-export type ITime = number | string | Date;
-export const formattedDate = (time: ITime): string =>
-  new Date(time).toLocaleDateString().replace(/\//g, '-'); // WHY?
-
 export const prefixDateTime = (target: number) => {
   return target < 10 ? `0${target}` : target;
 };
+export type ITime = number | string | Date;
+export const formattedDate = (
+  time = new Date() as ITime,
+  { separator = '/', prefixEnabled = true } = {
+    separator: '/',
+    prefixEnabled: true,
+  }
+) => {
+  const _time = new Date(time);
+  const offset = _time.getTimezoneOffset() * 60 * 1000;
+  // 数据库存储的是不带时区的时间戳，故只能手动加上时区
+  const __time = new Date(_time.getTime() - offset);
+  let month: ITime, date: ITime;
+  if (prefixEnabled) {
+    month = prefixDateTime(__time.getMonth() + 1);
+    date = prefixDateTime(__time.getDate());
+  } else {
+    month = __time.getMonth() + 1;
+    date = __time.getDate();
+  }
+  return `${__time.getFullYear()}${separator}${month}${separator}${date}`;
+};
 
 export const formattedTime = (
-  { time = new Date(), separator = ':', prefixEnabled = true } = {
-    time: new Date(),
+  time = new Date() as ITime,
+  { separator = ':', prefixEnabled = true } = {
     separator: ':',
     prefixEnabled: true,
   }
 ) => {
   const _time = new Date(time);
+  const offset = _time.getTimezoneOffset() * 60 * 1000;
+  const __time = new Date(_time.getTime() - offset);
   let hours: ITime, minutes: ITime, seconds: ITime;
   if (prefixEnabled) {
-    hours = prefixDateTime(_time.getHours());
-    minutes = prefixDateTime(_time.getMinutes());
-    seconds = prefixDateTime(_time.getSeconds());
+    hours = prefixDateTime(__time.getHours());
+    minutes = prefixDateTime(__time.getMinutes());
+    seconds = prefixDateTime(__time.getSeconds());
   } else {
-    hours = _time.getHours();
-    minutes = _time.getMinutes();
-    seconds = _time.getSeconds();
+    hours = __time.getHours();
+    minutes = __time.getMinutes();
+    seconds = __time.getSeconds();
   }
   return `${hours}${separator}${minutes}${separator}${seconds}`;
 };
