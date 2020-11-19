@@ -11,16 +11,15 @@ const PostEdit: NextApiHandler = async (request, response) => {
     response,
     { method: 'POST', auth: true }
   );
-  if (!isMethodValidated || !isAuthenticated) {
-    return;
-  }
+  if (!isMethodValidated || !isAuthenticated) return;
+
   const { title, content, id } = request.body;
   try {
-    const connection = await getDatabaseConnection();
-    const post = await connection.manager.findOne<Post>('Post', id);
+    const { manager } = await getDatabaseConnection();
+    const post = await manager.findOne<Post>('Post', id);
     post.title = title;
     post.content = content;
-    await connection.manager.save(post);
+    await manager.save(post);
     response.statusCode = 200;
     response.json(post);
   } catch (error) {

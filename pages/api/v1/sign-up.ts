@@ -8,9 +8,8 @@ const SignUp: NextApiHandler = async (request, response) => {
   const { isMethodValidated } = validateRequest(request, response, {
     method: 'POST',
   });
-  if (!isMethodValidated) {
-    return;
-  }
+  if (!isMethodValidated) return;
+
   const { username, password, passwordConfirmation } = request.body;
   const { hasErrors, errors } = await validateSignUp({
     username,

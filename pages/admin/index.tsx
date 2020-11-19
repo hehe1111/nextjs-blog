@@ -68,8 +68,8 @@ export const getServerSideProps: GetServerSideProps = withSession(
     let page = parseInt(_page || '1', 10);
     (!page || page <= 0) && (page = 1);
 
-    const connection = await getDatabaseConnection();
-    const [posts, total] = await connection.manager.findAndCount('Post', {
+    const { manager } = await getDatabaseConnection();
+    const [posts, total] = await manager.findAndCount('Post', {
       // https://typeorm.io/#/find-options
       order: { createdAt: 'DESC' },
       take: PER_PAGE,

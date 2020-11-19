@@ -24,11 +24,9 @@ export default PostEdit;
 
 export const getServerSideProps = withSession(
   async (context: GetServerSidePropsContext<{ id: string }>) => {
-    const connection = await getDatabaseConnection();
-    const post = await connection.manager.findOne<Post>(
-      'Post',
-      context.params.id
-    );
+    const { manager } = await getDatabaseConnection();
+    const post = await manager.findOne<Post>('Post', context.params.id);
+
     return {
       props: {
         post: JSON.parse(JSON.stringify(post)),

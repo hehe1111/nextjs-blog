@@ -10,9 +10,8 @@ const SignIn: NextApiHandler = async (request, response) => {
   const { isMethodValidated } = validateRequest(request, response, {
     method: 'POST',
   });
-  if (!isMethodValidated) {
-    return;
-  }
+  if (!isMethodValidated) return;
+
   const { username, password } = request.body;
   const { hasErrors, errors, found } = await validateSignIn({
     username,

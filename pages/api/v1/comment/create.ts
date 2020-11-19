@@ -10,9 +10,8 @@ const PostComment: NextApiHandler = async (request, response) => {
   const { isMethodValidated } = validateRequest(request, response, {
     method: 'POST',
   });
-  if (!isMethodValidated) {
-    return;
-  }
+  if (!isMethodValidated) return;
+
   const {
     postId,
     username,

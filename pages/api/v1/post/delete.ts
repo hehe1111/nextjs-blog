@@ -10,14 +10,17 @@ const PostDelete: NextApiHandler = async (request, response) => {
     response,
     { method: 'POST', auth: true }
   );
-  if (!isMethodValidated || !isAuthenticated) {
-    return;
+  if (!isMethodValidated || !isAuthenticated) return;
+
+  try {
+    const { manager } = await getDatabaseConnection();
+    await manager.delete('Post', request.body.id);
+    response.statusCode = 200;
+    response.json({ message: '删除成功' });
+  } catch (error) {
+    response.statusCode = 500;
+    response.json({ message: '服务器错误，删除失败' });
   }
-  const { id } = request.body;
-  const connection = await getDatabaseConnection();
-  await connection.manager.delete('Post', id);
-  response.statusCode = 200;
-  response.json({ message: '删除成功' });
 };
 
 export default withSession(PostDelete);

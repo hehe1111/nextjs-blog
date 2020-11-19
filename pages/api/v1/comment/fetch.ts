@@ -9,9 +9,8 @@ const PostComment: NextApiHandler = async (request, response) => {
   const { isMethodValidated } = validateRequest(request, response, {
     method: 'POST',
   });
-  if (!isMethodValidated) {
-    return;
-  }
+  if (!isMethodValidated) return;
+
   const { id } = request.body;
   const { manager } = await getDatabaseConnection();
   const post = await manager.findOne<Post>('Post', {

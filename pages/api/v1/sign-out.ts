@@ -7,14 +7,10 @@ const SignOut: NextApiHandler = async (request, response) => {
   const { isMethodValidated, isAuthenticated } = validateRequest(
     request,
     response,
-    {
-      method: 'POST',
-      auth: true,
-    }
+    { method: 'POST', auth: true }
   );
-  if (!isMethodValidated || !isAuthenticated) {
-    return;
-  }
+  if (!isMethodValidated || !isAuthenticated) return;
+
   request.session.destroy();
   response.statusCode = 200;
   response.json({ message: '退出成功' });
