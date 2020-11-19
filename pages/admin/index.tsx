@@ -20,6 +20,7 @@ export interface IProps {
   page: number;
   totalPage: number;
   total: number;
+  totalComments?: number;
   user: User | null;
 }
 interface ICommonProps extends IProps {
@@ -75,6 +76,7 @@ export const getServerSideProps: GetServerSideProps = withSession(
       take: PER_PAGE,
       skip: PER_PAGE * (page - 1),
     });
+    const [_, totalComments] = await manager.findAndCount('Comment');
 
     return {
       props: {
@@ -82,6 +84,7 @@ export const getServerSideProps: GetServerSideProps = withSession(
         page,
         totalPage: Math.ceil(total / PER_PAGE),
         total,
+        totalComments,
         // @ts-ignore
         user: context.req.session.get('currentUser') || null,
       },
@@ -129,6 +132,7 @@ export function PostListCommon({
   page,
   totalPage,
   total,
+  totalComments,
   user,
   children,
 }: ICommonProps) {
@@ -151,7 +155,10 @@ export function PostListCommon({
       </Head>
 
       <Header>
-        <small>（共 {total} 篇）</small>
+        <small>
+          （共 {total} 篇文章{isAdminPage && <>，{totalComments} 条评论</>}）
+        </small>
+
         {/* 新增 */}
         {user && children && children?.[0]}
       </Header>
