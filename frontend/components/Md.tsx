@@ -1,6 +1,7 @@
 import marked from 'marked';
 import hljs from 'highlight.js';
 import { forwardRef } from 'react';
+import styled from 'styled-components';
 
 type IProps = {
   string: string;
@@ -24,6 +25,14 @@ marked.setOptions({
   xhtml: false,
 });
 
+const Article = styled.article`
+  @media (min-width: 700px) {
+    &.markdown-body {
+      font-size: 24px;
+    }
+  }
+`;
+
 // https://styled-components.com/docs/basics#styling-any-component
 const Md = forwardRef(
   (
@@ -31,13 +40,13 @@ const Md = forwardRef(
     ref?: { current: HTMLElement }
   ) => {
     return (
-      <article
+      <Article
         ref={ref}
         dangerouslySetInnerHTML={{ __html: marked(string) }}
         className={`markdown-body ${className}`}
         // @ts-ignore
         onScroll={onScroll}
-      ></article>
+      ></Article>
     );
   }
 );

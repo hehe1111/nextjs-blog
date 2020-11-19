@@ -19,16 +19,6 @@ const ContentAndComments = styled.div`
   max-width: 1000px;
   margin: 40px auto 100px auto;
 `;
-const PostContent = styled(Md)`
-  @media (max-width: 800px) {
-    padding: 0;
-  }
-  @media (min-width: 700px) {
-    &.markdown-body {
-      font-size: 24px;
-    }
-  }
-`;
 
 const ThePost: NextPage<{ post: Post }> = ({ post }) => {
   return (
@@ -40,7 +30,7 @@ const ThePost: NextPage<{ post: Post }> = ({ post }) => {
       <PostTitle>{post.title}</PostTitle>
       <PostDate date={post.createdAt} />
       <ContentAndComments>
-        <PostContent string={post.content} />
+        <Md string={post.content} />
         <CommentsArea post={post} />
       </ContentAndComments>
     </>

@@ -21,6 +21,11 @@ interface IFormDataFull extends IFormData {
   replyTo?: string;
 }
 
+const Area = styled.div`
+  @media (max-width: 700px) {
+    font-size: 16px;
+  }
+`;
 const labelWidth = '4em';
 const gutter = '8px';
 const rowMargin = '16px';
@@ -41,16 +46,16 @@ const FormRow = styled.div`
   margin-top: ${rowMargin};
   display: flex;
   align-items: center;
-  &.x {
+  &.vertical-top {
     align-items: flex-start;
   }
 `;
 const Input = styled(_Input)`
   @media (max-width: 500px) {
-    max-width: 220px;
+    flex: 1;
   }
   @media (max-width: 320px) {
-    max-width: 166px;
+    max-width: 198px;
   }
 `;
 const Textarea = styled.textarea`
@@ -79,25 +84,23 @@ const CommentRow = styled.div`
   padding-top: ${rowPadding};
   word-break: break-all;
 `;
-const CommentUsernameAndTime = styled.div`
-  display: flex;
-  align-items: center;
-`;
-const CommentUsername = styled.span`
+const Name = styled.span`
   color: #f00;
 `;
-const CommentTime = styled.time`
-  flex: 1;
+const Time = styled.time`
+  margin-top: 10px;
+  display: block;
+  font-size: 16px;
   color: #ccc;
   text-align: right;
   white-space: nowrap;
 `;
-const CommentContent = styled.div`
+const Content = styled.div`
   padding-top: 10px;
   padding-bottom: ${rowPadding};
   border-bottom: 1px dashed #ddd;
 `;
-const CommentReplies = styled.div`
+const Replies = styled.div`
   padding-left: 2em;
 `;
 
@@ -152,7 +155,7 @@ const CommentsArea = ({ post }: IProps) => {
   );
 
   return (
-    <>
+    <Area>
       <Form onSubmit={onSubmit}>
         <FormRow>
           <Label htmlFor="username">用户名</Label>
@@ -176,7 +179,7 @@ const CommentsArea = ({ post }: IProps) => {
             }
           />
         </FormRow>
-        <FormRow className="x">
+        <FormRow className="vertical-top">
           <Label htmlFor="content">内容</Label>
           <Textarea
             id="content"
@@ -203,35 +206,35 @@ const CommentsArea = ({ post }: IProps) => {
           } = _comments[id] as IComment;
           return (
             <CommentRow key={id}>
-              <CommentUsernameAndTime>
-                <CommentUsername>{username}</CommentUsername>
-                <CommentTime>
+              <Name>{username}</Name>
+              <Content>
+                <p>{content}</p>
+                <Time>
                   {formattedDate(createdAt)}{' '}
                   {formattedTime({ time: createdAt })}
-                </CommentTime>
-              </CommentUsernameAndTime>
-              <CommentContent>{content}</CommentContent>
-              <CommentReplies>
+                </Time>
+              </Content>
+              <Replies>
                 {replies.map(r => (
                   <CommentRow key={r.id}>
-                    <CommentUsernameAndTime>
-                      <CommentUsername>{r.username}</CommentUsername>
-                      <span> 回复 </span>
-                      <CommentUsername>{r.replyTo}</CommentUsername>
-                      <CommentTime>
+                    <Name>{r.username}</Name>
+                    <span> 回复 </span>
+                    <Name>{r.replyTo}</Name>
+                    <Content>
+                      <p>{r.content}</p>
+                      <Time>
                         {formattedDate(r.createdAt)}{' '}
                         {formattedTime({ time: r.createdAt })}
-                      </CommentTime>
-                    </CommentUsernameAndTime>
-                    <CommentContent>{r.content}</CommentContent>
+                      </Time>
+                    </Content>
                   </CommentRow>
                 ))}
-              </CommentReplies>
+              </Replies>
             </CommentRow>
           );
         })
       )}
-    </>
+    </Area>
   );
 };
 
