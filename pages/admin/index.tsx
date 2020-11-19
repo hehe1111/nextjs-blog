@@ -200,6 +200,11 @@ function EditAndDelete(post: Post) {
 
   return (
     <>
+      <Link href={`/posts/${post.id}/comments`}>
+        <a>
+          <Button className="blue">管理评论</Button>
+        </a>
+      </Link>
       <Link href={`/posts/${post.id}/edit`}>
         <a>
           <Button className="blue">修改</Button>

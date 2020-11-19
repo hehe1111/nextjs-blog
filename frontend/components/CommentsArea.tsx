@@ -196,7 +196,7 @@ const CommentRow = styled.div`
   padding-top: ${rowPadding};
   word-break: break-all;
 `;
-const Name = styled.span`
+export const Name = styled.span`
   color: #f00;
 `;
 const Replies = styled.div`
