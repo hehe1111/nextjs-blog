@@ -5,10 +5,12 @@ import validateRequest from 'backend/validateRequest';
 
 const CommentDelete: NextApiHandler = async (request, response) => {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
-  const { isMethodValidated } = validateRequest(request, response, {
-    method: 'DELETE',
-  });
-  if (!isMethodValidated) return;
+  const { isMethodValidated, isAuthenticated } = validateRequest(
+    request,
+    response,
+    { method: 'DELETE', auth: true }
+  );
+  if (!isMethodValidated || !isAuthenticated) return;
 
   const { id } = request.body;
   try {

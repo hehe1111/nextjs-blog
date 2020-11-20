@@ -1,7 +1,6 @@
 import { NextApiHandler } from 'next';
 import { Post } from 'db/src/entity/Post';
 import { Comment } from 'db/src/entity/Comment';
-import { withSession } from 'backend/withSession';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
 import validateRequest from 'backend/validateRequest';
 
@@ -39,4 +38,4 @@ const CommentCreate: NextApiHandler = async (request, response) => {
   }
 };
 
-export default withSession(CommentCreate);
+export default CommentCreate;
