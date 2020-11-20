@@ -18,7 +18,7 @@ const Page = styled.div`
 const Row = styled.div`
   padding: 20px 0;
   word-break: break-all;
-  border-bottom: 1px solid var(---grey);
+  border-bottom: 1px dashed var(--grey);
   &:hover {
     background-color: var(--lightGrey);
   }
