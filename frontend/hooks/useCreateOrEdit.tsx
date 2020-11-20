@@ -84,10 +84,12 @@ const useCreateOrEdit = ({
   const onSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      if (formData.title === '' || formData.content === '') {
+      const title = formData.title.trim();
+      const content = formData.content.trim();
+      if (!title || !content) {
         return alert('标题和内容均不能为空');
       }
-      client.post(url, formData).then(
+      client.post(url, { ...formData, title, content }).then(
         () => {
           alert(`${type}成功`);
           router.push(`/admin`);
