@@ -11,14 +11,18 @@ const PostComment: NextApiHandler = async (request, response) => {
   });
   if (!isMethodValidated) return;
 
-  const { id } = request.body;
-  const { manager } = await getDatabaseConnection();
-  const post = await manager.findOne<Post>('Post', {
-    where: { id },
-    relations: ['comments'],
-  });
-  response.statusCode = 200;
-  response.json(post.comments);
+  try {
+    const { manager } = await getDatabaseConnection();
+    const post = await manager.findOne<Post>('Post', {
+      where: { id: request.body.id },
+      relations: ['comments'],
+    });
+    response.statusCode = 200;
+    response.json(post.comments);
+  } catch (error) {
+    response.statusCode = 500;
+    response.json({ messge: '服务器错误，获取评论失败' });
+  }
 };
 
 export default withSession(PostComment);
