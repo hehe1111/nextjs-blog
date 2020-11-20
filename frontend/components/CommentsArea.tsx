@@ -32,7 +32,7 @@ const labelWidth = '4em';
 const gutter = '8px';
 const rowMargin = '16px';
 const Form = styled.form`
-  margin: 100px 0 20px 0;
+  margin-bottom: 30px;
   padding: 0 ${rowMargin} ${rowMargin} 0;
   border: 1px solid #ddd;
   border-radius: 4px;

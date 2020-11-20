@@ -27,6 +27,27 @@ const ContentAndComments = styled.div`
   max-width: 1000px;
   margin: 40px auto 100px auto;
 `;
+const TheEnd = styled(_Small)`
+  margin: 80px 0 60px 0;
+  position: relative;
+  text-align: center;
+  &::before,
+  &::after {
+    content: '';
+    width: 35%;
+    height: 2px;
+    background-color: #ddd;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &::before {
+    left: 0;
+  }
+  &::after {
+    right: 0;
+  }
+`;
 
 const ThePost: NextPage<{ post: Post }> = ({ post }) => {
   let countSuccess = true;
@@ -49,6 +70,7 @@ const ThePost: NextPage<{ post: Post }> = ({ post }) => {
       </Small>
       <ContentAndComments>
         <Md string={post.content} />
+        <TheEnd>~ 全文完 ~</TheEnd>
         <CommentsArea post={post} />
       </ContentAndComments>
     </>
