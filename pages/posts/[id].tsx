@@ -53,7 +53,9 @@ const ThePost: NextPage<{ post: Post }> = ({ post }) => {
   let countSuccess = true;
   useEffect(() => {
     post.pageView += 1;
-    client.post('/api/v1/post/edit', post).catch(() => (countSuccess = false));
+    client
+      .post('/api/v1/comment/count', { id: post.id, pageView: post.pageView })
+      .catch(() => (countSuccess = false));
   }, []);
 
   return (
