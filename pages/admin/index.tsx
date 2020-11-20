@@ -12,6 +12,7 @@ import { withSession } from 'backend/withSession';
 import usePage from 'frontend/hooks/usePage';
 import Button from 'frontend/components/Button';
 import PostDate from 'frontend/components/PostDate';
+import _Small from 'frontend/components/Small';
 import client from 'frontend/client';
 
 export interface IProps {
@@ -122,6 +123,14 @@ const PostTitleItem = styled.div`
     margin-left: 10px;
   }
 `;
+const Small = styled(_Small)`
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  > * {
+    margin-right: 20px;
+  }
+`;
 const Footer = styled.div`
   margin: 20px 0 40px 0;
 `;
@@ -170,7 +179,11 @@ export function PostListCommon({
               <Link href={`/posts/${post.id}`}>
                 <a>{post.title}</a>
               </Link>
-              <PostDate date={post.createdAt} />
+              <Small>
+                <PostDate date={post.createdAt} />
+                <span>字数：{post.content.length}</span>
+                <span>阅读：{post.pageView}</span>
+              </Small>
             </div>
 
             {/* 修改 删除 */}
