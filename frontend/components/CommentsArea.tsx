@@ -73,7 +73,7 @@ const Textarea = styled.textarea`
     border-color: #0170fe;
   }
 `;
-const Submit = styled.div`
+const EmptyLeft = styled.div`
   margin: ${rowMargin} 0 0 calc(${labelWidth} + ${gutter});
 `;
 const Tip = styled.span`
@@ -89,6 +89,10 @@ const ReplyTo = styled.div`
     padding-left: 16px;
   }
 `;
+
+const CONTENT = '评论';
+const USERNAME = '用户名';
+const EMAIL = '邮箱';
 
 const CommentsArea = ({ post }: IProps) => {
   const [comments, setComments] = useState(post.comments);
@@ -110,7 +114,7 @@ const CommentsArea = ({ post }: IProps) => {
       event.preventDefault();
       if (loading) return;
 
-      const labels = { username: '用户名', email: '邮箱', content: '内容' };
+      const labels = { content: CONTENT, username: USERNAME, email: EMAIL };
       const shouldReturn = Object.keys(labels).some(k => {
         formData[k] === '' && setError(`${labels[k]}不能为空`);
         return formData[k] === '';
@@ -147,9 +151,20 @@ const CommentsArea = ({ post }: IProps) => {
   return (
     <Area>
       <Form onSubmit={onSubmit} ref={formRef}>
+        <FormRow className="vertical-top">
+          <Label htmlFor="content">{CONTENT}</Label>
+          <Textarea
+            id="content"
+            rows={10}
+            value={formData.content}
+            onChange={event =>
+              setFormData({ ...formData, content: event.target.value })
+            }
+          />
+        </FormRow>
         {[
-          ['username', '用户名'],
-          ['email', '邮箱'],
+          ['username', USERNAME],
+          ['email', EMAIL],
         ].map(f => (
           <FormRow key={f[0]}>
             <Label htmlFor={f[0]}>{f[1]}</Label>
@@ -163,25 +178,16 @@ const CommentsArea = ({ post }: IProps) => {
             />
           </FormRow>
         ))}
-        <FormRow className="vertical-top">
-          <Label htmlFor="content">内容</Label>
-          <Textarea
-            id="content"
-            rows={10}
-            value={formData.content}
-            onChange={event =>
-              setFormData({ ...formData, content: event.target.value })
-            }
-          />
-        </FormRow>
-        <Submit>
+        <EmptyLeft>* {EMAIL}不会被公开</EmptyLeft>
+
+        <EmptyLeft>
           <Button className="blue">提交</Button>
           {error && <Tip>{error}</Tip>}
           {loading && <Tip>加载中...</Tip>}
           {reply.replyTo && (
             <ReplyTo onClick={onCancelReply}>@{reply.replyTo}</ReplyTo>
           )}
-        </Submit>
+        </EmptyLeft>
       </Form>
 
       <CommentsDisplay
