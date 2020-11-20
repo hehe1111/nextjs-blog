@@ -92,9 +92,7 @@ const useCreateOrEdit = ({
           alert(`${type}成功`);
           router.push(`/admin`);
         },
-        (error: AxiosError) => {
-          console.log(error.response.data.message);
-        }
+        (error: AxiosError) => console.log(error.response.data.message)
       );
     },
     [formData]
