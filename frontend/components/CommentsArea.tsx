@@ -163,14 +163,14 @@ const CommentsArea = ({ post }: IProps) => {
           />
         </FormRow>
         {[
-          ['username', USERNAME],
-          ['email', EMAIL],
+          ['username', USERNAME, 'text'],
+          ['email', EMAIL, 'email'],
         ].map(f => (
           <FormRow key={f[0]}>
             <Label htmlFor={f[0]}>{f[1]}</Label>
             <Input
               id={f[0]}
-              type="text"
+              type={f[2]}
               value={formData[f[0]]}
               onChange={event =>
                 setFormData({ ...formData, [f[0]]: event.target.value })
