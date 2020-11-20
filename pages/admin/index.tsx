@@ -187,7 +187,8 @@ export function PostListCommon({
             </div>
 
             {/* 修改 删除 */}
-            {children &&
+            {user &&
+              children &&
               typeof children?.[1] === 'function' &&
               children[1](post)}
           </PostTitleItem>
