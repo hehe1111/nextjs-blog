@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { AxiosError, AxiosResponse } from 'axios';
-import { ReactNode, useCallback, useEffect } from 'react';
+import { ReactNode, useCallback } from 'react';
 import { Post } from 'db/src/entity/Post';
 import { User } from 'db/src/entity/User';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
@@ -50,7 +50,7 @@ const Admin: NextPage<IProps> = props => {
     <>请先登录</>
   ) : (
     <PostListCommon {...props} isAdminPage={true}>
-      <>
+      <div>
         <Link href="/posts/create">
           <a>
             <Button className="green">新增</Button>
@@ -59,7 +59,7 @@ const Admin: NextPage<IProps> = props => {
         <ExitButton className="red" onClick={onExit}>
           退出
         </ExitButton>
-      </>
+      </div>
       {EditAndDelete}
     </PostListCommon>
   );
@@ -151,6 +151,7 @@ export function PostListCommon({
   children,
 }: ICommonProps) {
   const pager = usePage({ page, totalPage });
+
   return (
     <Page>
       <Head>
@@ -163,7 +164,7 @@ export function PostListCommon({
         </small>
 
         {/* 新增 */}
-        {isAdminPage && user && children && children?.[0]}
+        {(isAdminPage && user && children?.[0]) || children}
       </Header>
       {posts.length === 0 && <p>没有更多了~</p>}
       <main>
@@ -183,7 +184,6 @@ export function PostListCommon({
             {/* 修改 删除 */}
             {isAdminPage &&
               user &&
-              children &&
               typeof children?.[1] === 'function' &&
               children[1](post)}
           </PostTitleItem>
@@ -195,13 +195,13 @@ export function PostListCommon({
 }
 
 function EditAndDelete(post: Post) {
-  const router = useRouter();
   // TODO: onDelete 不能用 useCallback 包裹，原因未知
   const onDelete = () => {
     client
       .delete('/api/v1/post/delete', { data: { id: post.id } })
       .then((response: AxiosResponse) => {
-        router.reload();
+        // TODO: 不能使用 useRouter，原因未知
+        window.location.reload();
         alert(response.data.message);
       })
       .catch((error: AxiosError) =>
