@@ -22,9 +22,6 @@ const Page = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Header = styled.header`
-  color: #777;
-`;
 const Form = styled.form`
   flex: 1;
   display: flex;
@@ -41,7 +38,7 @@ const Row = styled.div`
 const Label = styled.label`
   margin-bottom: 0.5em;
   font-size: 16px;
-  color: #999;
+  color: var(--darkGrey);
 `;
 const EditAndDisplay = styled.div`
   flex: 1;
@@ -49,7 +46,7 @@ const EditAndDisplay = styled.div`
   > * {
     width: calc(50% - 4px);
     padding: 16px 8px;
-    border: 1px solid #999;
+    border: 1px solid var(--black);
     border-radius: 4px;
     overflow: auto;
     font-size: 20px;
@@ -66,10 +63,10 @@ const Textarea = styled.textarea`
   outline: none;
   &:hover,
   &:focus {
-    border-color: #0170fe;
+    border-color: var(--blue);
   }
 `;
-const SubmitButton = styled(Button)`
+const Submit = styled(Button)`
   width: 100%;
   margin: 16px 0;
 `;
@@ -148,8 +145,7 @@ const useCreateOrEdit = ({
         <title>{type}文章</title>
       </Head>
 
-      <Header>{type}文章</Header>
-
+      <div>{type}文章</div>
       <Form onSubmit={onSubmit}>
         <Row>
           <Label htmlFor="title">标题</Label>
@@ -166,7 +162,6 @@ const useCreateOrEdit = ({
             }
           />
         </Row>
-
         <Row className="flex1">
           <Label htmlFor="content">内容</Label>
           <EditAndDisplay>
@@ -190,9 +185,9 @@ const useCreateOrEdit = ({
           </EditAndDisplay>
         </Row>
 
-        <SubmitButton type="submit" className="blue">
+        <Submit type="submit" className="blue">
           提交
-        </SubmitButton>
+        </Submit>
       </Form>
     </Page>
   );

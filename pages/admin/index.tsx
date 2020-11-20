@@ -108,12 +108,12 @@ const Header = styled.header`
 `;
 const PostTitleItem = styled.div`
   padding: 16px 0;
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px dashed var(--grey);
   font-size: 24px;
   display: flex;
   align-items: center;
   &:hover {
-    background-color: #f6f8fa;
+    background-color: var(--lightGrey);
   }
   & > div {
     flex: 1;

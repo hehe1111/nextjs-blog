@@ -1,3 +1,14 @@
+:root {
+  --green: #3eaf7c;
+  --blue: #0170fe;
+  --red: #f00;
+  --black: #24292e;
+  --darkGrey: #888;
+  --grey: #ddd;
+  --lightGrey: #f6f8fa;
+  --white: #fff;
+}
+
 *,
 *::before,
 *::after {
@@ -14,9 +25,9 @@ body,
 
 a {
   text-decoration: none;
-  color: #24292e;
+  color: var(--black);
 }
 a:hover {
   text-decoration: underline;
-  color: #0170fe;
+  color: var(--blue);
 }

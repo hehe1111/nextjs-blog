@@ -18,9 +18,9 @@ const Page = styled.div`
 const Row = styled.div`
   padding: 20px 0;
   word-break: break-all;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(---grey);
   &:hover {
-    background-color: #f6f8fa;
+    background-color: var(--lightGrey);
   }
 `;
 const NameAndDelete = styled.div`

@@ -36,7 +36,7 @@ const TheEnd = styled(_Small)`
     content: '';
     width: 35%;
     height: 2px;
-    background-color: #ddd;
+    background-color: var(--grey);
     position: absolute;
     top: 50%;
     transform: translateY(-50%);

@@ -23,8 +23,8 @@ const PageAnchor = styled.div`
   }
   &:hover:not(.plain),
   &.active {
-    background-color: #0170fe;
-    color: #fff;
+    background-color: var(--blue);
+    color: var(--white);
   }
 `;
 

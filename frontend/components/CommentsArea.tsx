@@ -34,7 +34,7 @@ const rowMargin = '16px';
 const Form = styled.form`
   margin-bottom: 30px;
   padding: 0 ${rowMargin} ${rowMargin} 0;
-  border: 1px solid #ddd;
+  border: 1px solid var(--grey);
   border-radius: 4px;
 `;
 const Label = styled.label`
@@ -63,14 +63,14 @@ const Input = styled(_Input)`
 const Textarea = styled.textarea`
   flex: 1;
   padding: 16px;
-  border: 1px solid #999;
+  border: 1px solid var(--black);
   border-radius: 4px;
   outline: none;
   font-size: 20px;
   line-height: 1.4;
   &:hover,
   &:focus {
-    border-color: #0170fe;
+    border-color: var(--blue);
   }
 `;
 const EmptyLeft = styled.div`
@@ -79,7 +79,7 @@ const EmptyLeft = styled.div`
 const Tip = styled.span`
   margin-left: 8px;
   font-size: 16px;
-  color: #f00;
+  color: var(--red);
 `;
 const ReplyTo = styled.div`
   margin-top: 16px;
@@ -206,7 +206,7 @@ const CommentRow = styled.div`
   word-break: break-all;
 `;
 export const Name = styled.span`
-  color: #f00;
+  color: var(--red);
 `;
 const Replies = styled.div`
   padding-left: 2em;
@@ -260,7 +260,7 @@ function CommentsDisplay({ comments, setReply, scrollToForm }) {
 const ContentRowElement = styled.div`
   padding-top: 8px;
   padding-bottom: 4px;
-  border-bottom: 1px dashed #ddd;
+  border-bottom: 1px dashed var(--grey);
   position: relative;
 `;
 const Content = styled.p`
@@ -280,7 +280,7 @@ const Reply = styled.button`
   right: 0;
   font-size: 16px;
   &:hover {
-    color: #0170fe;
+    color: var(--blue);
   }
 `;
 function ContentRow({ comment, setReply, scrollToForm }) {
