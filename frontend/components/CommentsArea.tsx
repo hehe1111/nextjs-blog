@@ -4,7 +4,8 @@ import { AxiosError } from 'axios';
 import { Post } from 'db/src/entity/Post';
 import { Comment } from 'db/src/entity/Comment';
 import Button from 'frontend/components/Button';
-import { default as _Input } from 'frontend/components/Input';
+import _Input from 'frontend/components/Input';
+import Small from 'frontend/components/Small';
 import client from 'frontend/client';
 import { escape, formattedDate, formattedTime } from 'frontend/utils';
 
@@ -259,11 +260,8 @@ const ContentRowElement = styled.div`
 const Content = styled.p`
   padding-right: 40px;
 `;
-const Time = styled.time`
+const Time = styled(Small)`
   margin-top: 10px;
-  display: block;
-  font-size: 16px;
-  color: #ccc;
   text-align: right;
   white-space: nowrap;
 `;

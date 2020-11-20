@@ -13,12 +13,13 @@ const PostEdit: NextApiHandler = async (request, response) => {
   );
   if (!isMethodValidated || !isAuthenticated) return;
 
-  const { title, content, id } = request.body;
+  const { id, title, content, pageView } = request.body;
   try {
     const { manager } = await getDatabaseConnection();
     const post = await manager.findOne<Post>('Post', id);
     post.title = title;
     post.content = content;
+    post.pageView = pageView;
     await manager.save(post);
     response.statusCode = 200;
     response.json(post);

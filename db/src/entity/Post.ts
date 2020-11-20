@@ -18,6 +18,8 @@ export class Post {
   title: string;
   @Column('text')
   content: string;
+  @Column('int')
+  pageView: number;
   @CreateDateColumn()
   createdAt: Date;
   @UpdateDateColumn()

@@ -1,23 +1,24 @@
 import { NextPage, GetServerSidePropsContext, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
+import { useEffect } from 'react';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
 import { withSession } from 'backend/withSession';
 import { Post } from 'db/src/entity/Post';
 import PostDate from 'frontend/components/PostDate';
 import Md from 'frontend/components/Md';
 import CommentsArea from 'frontend/components/CommentsArea';
+import _Small from 'frontend/components/Small';
+import client from 'frontend/client';
 
 const PostTitle = styled.h1`
   margin: 20px 0;
   text-align: center;
 `;
-const PostInfo = styled.div`
+const Small = styled(_Small)`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
-  color: #bbb;
   > * {
     margin: 0 10px;
   }
@@ -28,6 +29,12 @@ const ContentAndComments = styled.div`
 `;
 
 const ThePost: NextPage<{ post: Post }> = ({ post }) => {
+  let countSuccess = true;
+  useEffect(() => {
+    post.pageView += 1;
+    client.post('/api/v1/post/edit', post).catch(() => (countSuccess = false));
+  }, []);
+
   return (
     <>
       <Head>
@@ -35,10 +42,11 @@ const ThePost: NextPage<{ post: Post }> = ({ post }) => {
       </Head>
 
       <PostTitle>{post.title}</PostTitle>
-      <PostInfo>
+      <Small>
         <PostDate date={post.createdAt} />
         <span>字数：{post.content.length}</span>
-      </PostInfo>
+        <span>阅读：{post.pageView + (countSuccess ? 1 : 0)}</span>
+      </Small>
       <ContentAndComments>
         <Md string={post.content} />
         <CommentsArea post={post} />

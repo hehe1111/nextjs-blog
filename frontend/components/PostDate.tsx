@@ -1,10 +1,5 @@
-import styled from 'styled-components';
 import { formattedDate, ITime } from 'frontend/utils';
-
-const PostDateElement = styled.div`
-  font-size: 16px;
-  color: #bbb;
-`;
+import Small from 'frontend/components/Small';
 
 const PostDate = ({
   date,
@@ -13,11 +8,7 @@ const PostDate = ({
   date: ITime;
   className?: string;
 }) => {
-  return (
-    <PostDateElement className={className}>
-      {formattedDate(date)}
-    </PostDateElement>
-  );
+  return <Small className={className}>{formattedDate(date)}</Small>;
 };
 
 export default PostDate;
