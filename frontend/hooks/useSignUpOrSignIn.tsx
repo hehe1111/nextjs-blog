@@ -42,7 +42,7 @@ const useSignUpOrSignIn = ({
         () => {
           alert(`${type}成功`);
           const { redirect } = router.query;
-          router.push(redirect ? (redirect as string) : successRoute);
+          router.replace(redirect ? (redirect as string) : successRoute);
         },
         error => {
           if (error.response) {
