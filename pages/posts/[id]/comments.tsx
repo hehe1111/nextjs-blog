@@ -1,6 +1,5 @@
 import { GetServerSidePropsContext, NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Post } from 'db/src/entity/Post';
@@ -10,6 +9,7 @@ import { withSession } from 'backend/withSession';
 import Button from 'frontend/components/Button';
 import { Name } from 'frontend/components/CommentsArea';
 import client from 'frontend/client';
+import useAuth from 'frontend/hooks/useAuth';
 
 const Page = styled.div`
   max-width: 1000px;
@@ -32,15 +32,8 @@ const NameAndDelete = styled.div`
 `;
 
 const PostComments: NextPage<{ post: Post; user: User }> = ({ post, user }) => {
+  useAuth(user);
   const [comments, setComments] = useState(post.comments);
-  const router = useRouter();
-  useEffect(() => {
-    !user &&
-      router.push(
-        `/admin/sign-in?redirect=${encodeURIComponent(router.asPath)}`
-      );
-  }, []);
-
   const onDelete = useCallback(id => {
     client
       .delete('/api/v1/comment/delete', { data: { id } })

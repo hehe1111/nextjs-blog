@@ -9,6 +9,7 @@ import Button from 'frontend/components/Button';
 import Input from 'frontend/components/Input';
 import Md from 'frontend/components/Md';
 import { leftEscape } from 'frontend/utils';
+import useAuth from './useAuth';
 
 type IProps = {
   user: User;
@@ -77,15 +78,9 @@ const useCreateOrEdit = ({
   url,
   type,
 }: IProps): JSX.Element => {
-  const router = useRouter();
-  useEffect(() => {
-    !user &&
-      router.push(
-        `/admin/sign-in?redirect=${encodeURIComponent(router.asPath)}`
-      );
-  }, []);
-
+  useAuth(user);
   const [formData, setFormData] = useState(initialFormData);
+  const router = useRouter();
   const onSubmit = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -95,7 +90,7 @@ const useCreateOrEdit = ({
       client.post(url, formData).then(
         () => {
           alert(`${type}成功`);
-          type === '修改' ? router.back() : router.push(`/admin`);
+          router.push(`/admin`);
         },
         (error: AxiosError) => {
           console.log(error.response.data.message);

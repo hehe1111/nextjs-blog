@@ -9,6 +9,7 @@ import { Post } from 'db/src/entity/Post';
 import { User } from 'db/src/entity/User';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
 import { withSession } from 'backend/withSession';
+import useAuth from 'frontend/hooks/useAuth';
 import usePage from 'frontend/hooks/usePage';
 import Button from 'frontend/components/Button';
 import PostDate from 'frontend/components/PostDate';
@@ -33,6 +34,7 @@ const ExitButton = styled(Button)`
 `;
 
 const Admin: NextPage<IProps> = props => {
+  useAuth(props.user);
   const router = useRouter();
   const onExit = useCallback(() => {
     client
@@ -43,7 +45,10 @@ const Admin: NextPage<IProps> = props => {
       })
       .catch(error => console.log(error));
   }, []);
-  return (
+
+  return !props.user ? (
+    <>请先登录</>
+  ) : (
     <PostListCommon {...props} isAdminPage={true}>
       <>
         <Link href="/posts/create">
@@ -145,19 +150,8 @@ export function PostListCommon({
   user,
   children,
 }: ICommonProps) {
-  const router = useRouter();
-  useEffect(() => {
-    isAdminPage &&
-      !user &&
-      router.push(
-        `/admin/sign-in?redirect=${encodeURIComponent(router.asPath)}`
-      );
-  }, []);
-
   const pager = usePage({ page, totalPage });
-  return isAdminPage && !user ? (
-    <>请先登录</>
-  ) : (
+  return (
     <Page>
       <Head>
         <title>文章列表</title>
@@ -169,7 +163,7 @@ export function PostListCommon({
         </small>
 
         {/* 新增 */}
-        {user && children && children?.[0]}
+        {isAdminPage && user && children && children?.[0]}
       </Header>
       {posts.length === 0 && <p>没有更多了~</p>}
       <main>
@@ -187,7 +181,8 @@ export function PostListCommon({
             </div>
 
             {/* 修改 删除 */}
-            {user &&
+            {isAdminPage &&
+              user &&
               children &&
               typeof children?.[1] === 'function' &&
               children[1](post)}
@@ -209,14 +204,9 @@ function EditAndDelete(post: Post) {
         router.reload();
         alert(response.data.message);
       })
-      .catch((error: AxiosError) => {
-        console.log(error.response.data.message, JSON.stringify(error));
-        if (error.response?.status === 401) {
-          router.push(
-            `/admin/sign-in?redirect=${encodeURIComponent(router.asPath)}`
-          );
-        }
-      });
+      .catch((error: AxiosError) =>
+        console.log(error.response.data.message, JSON.stringify(error))
+      );
   };
 
   return (
