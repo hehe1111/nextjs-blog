@@ -192,7 +192,6 @@ function EditAndDelete(post: Post) {
     client
       .delete('/api/v1/post/delete', { data: { id: post.id } })
       .then((response: AxiosResponse) => {
-        // TODO: 请求接口做局部更新
         router.reload();
         alert(response.data.message);
       })
