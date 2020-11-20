@@ -1,6 +1,7 @@
+import { NextPage } from 'next';
 import { IProps, PostListCommon, getServerSideProps } from 'pages/admin/index';
 
-const PostList = (props: IProps) => <PostListCommon {...props} />;
+const PostList: NextPage<IProps> = props => <PostListCommon {...props} />;
 
 export default PostList;
 
