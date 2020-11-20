@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext, NextPage } from 'next';
-import { useRouter } from 'next/router';
 import { Post } from 'db/src/entity/Post';
 import { User } from 'db/src/entity/User';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
@@ -7,7 +6,6 @@ import { withSession } from 'backend/withSession';
 import useCreateOrEdit from 'frontend/hooks/useCreateOrEdit';
 
 const PostEdit: NextPage<{ post: Post; user: User }> = ({ post, user }) => {
-  const router = useRouter();
   return useCreateOrEdit({
     user,
     initialFormData: {
