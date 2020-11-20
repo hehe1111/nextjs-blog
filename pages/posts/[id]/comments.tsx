@@ -2,7 +2,7 @@ import { GetServerSidePropsContext, NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { Post } from 'db/src/entity/Post';
 import { User } from 'db/src/entity/User';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
@@ -43,11 +43,13 @@ const PostComments: NextPage<{ post: Post; user: User }> = ({ post, user }) => {
 
   const onDelete = useCallback(id => {
     client
-      .post('/api/v1/comment/delete', { id })
+      .delete('/api/v1/comment/delete', { data: { id } })
       .then((response: AxiosResponse) => alert(response.data.message))
       .then(() => client.post('/api/v1/comment/fetch', { id: post.id }))
       .then((response: AxiosResponse) => setComments(response.data))
-      .catch(error => console.log(error));
+      .catch((error: AxiosError) =>
+        console.log(error.response.data.message, JSON.stringify(error))
+      );
   }, []);
 
   return !user ? (

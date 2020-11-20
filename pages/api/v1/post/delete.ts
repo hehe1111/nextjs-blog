@@ -8,7 +8,7 @@ const PostDelete: NextApiHandler = async (request, response) => {
   const { isMethodValidated, isAuthenticated } = validateRequest(
     request,
     response,
-    { method: 'POST', auth: true }
+    { method: 'DELETE', auth: true }
   );
   if (!isMethodValidated || !isAuthenticated) return;
 

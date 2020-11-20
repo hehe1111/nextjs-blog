@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { ReactNode, useCallback, useEffect } from 'react';
 import { Post } from 'db/src/entity/Post';
 import { User } from 'db/src/entity/User';
@@ -190,13 +190,14 @@ function EditAndDelete(post: Post) {
   // TODO: onDelete 不能用 useCallback 包裹，原因未知
   const onDelete = () => {
     client
-      .post('/api/v1/post/delete', { id: post.id })
+      .delete('/api/v1/post/delete', { data: { id: post.id } })
       .then((response: AxiosResponse) => {
+        // TODO: 请求接口做局部更新
         router.reload();
         alert(response.data.message);
       })
-      .catch(error => {
-        console.log('删除失败', JSON.stringify(error));
+      .catch((error: AxiosError) => {
+        console.log(error.response.data.message, JSON.stringify(error));
         if (error.response?.status === 401) {
           router.push(
             `/admin/sign-in?redirect=${encodeURIComponent(router.asPath)}`

@@ -6,7 +6,7 @@ import validateRequest from 'backend/validateRequest';
 const PostComment: NextApiHandler = async (request, response) => {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
   const { isMethodValidated } = validateRequest(request, response, {
-    method: 'POST',
+    method: 'DELETE',
   });
   if (!isMethodValidated) return;
 
