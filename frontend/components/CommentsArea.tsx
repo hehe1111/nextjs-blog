@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useCallback, useRef, useState } from 'react';
+import { AxiosError } from 'axios';
 import { Post } from 'db/src/entity/Post';
 import { Comment } from 'db/src/entity/Comment';
 import Button from 'frontend/components/Button';
@@ -134,7 +135,9 @@ const CommentsArea = ({ post }: IProps) => {
           setComments(response.data);
           alert('提交成功');
         })
-        .catch(error => console.log(error))
+        .catch((error: AxiosError) =>
+          console.log(error.response.data.message, JSON.stringify(error))
+        )
         .finally(() => setLoading(false));
     },
     [formData]

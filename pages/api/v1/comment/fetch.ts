@@ -4,7 +4,7 @@ import { withSession } from 'backend/withSession';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
 import validateRequest from 'backend/validateRequest';
 
-const PostComment: NextApiHandler = async (request, response) => {
+const CommentFetch: NextApiHandler = async (request, response) => {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
   const { isMethodValidated } = validateRequest(request, response, {
     method: 'POST',
@@ -25,4 +25,4 @@ const PostComment: NextApiHandler = async (request, response) => {
   }
 };
 
-export default withSession(PostComment);
+export default withSession(CommentFetch);

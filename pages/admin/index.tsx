@@ -31,7 +31,7 @@ const ExitButton = styled(Button)`
   margin-left: 10px;
 `;
 
-const PostList: NextPage<IProps> = props => {
+const Admin: NextPage<IProps> = props => {
   const router = useRouter();
   const onExit = useCallback(() => {
     client
@@ -59,7 +59,7 @@ const PostList: NextPage<IProps> = props => {
   );
 };
 
-export default PostList;
+export default Admin;
 
 const PER_PAGE = 10;
 
