@@ -15,6 +15,7 @@ const PostDelete: NextApiHandler = async (request, response) => {
   try {
     const { manager } = await getDatabaseConnection();
     await manager.delete('Post', request.body.id);
+    await manager.delete('Comment', { postId: request.body.id });
     response.statusCode = 200;
     response.json({ message: '删除文章成功' });
   } catch (error) {
