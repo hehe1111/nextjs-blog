@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import client from 'frontend/client';
+import { escape } from 'frontend/utils';
 
 type IFormData = {
   username: string;
@@ -32,6 +33,11 @@ const useSignUpOrSignIn = ({
   const onSubmit = useCallback(
     event => {
       event.preventDefault();
+      const _formData = {} as IFormData;
+      Object.keys(formData).map(k => {
+        // TODO: 因为转义，导致部分字符不能用，需要提示
+        _formData[k] = escape(formData[k].trim());
+      });
       client.post(url, formData).then(
         () => {
           alert(`${type}成功`);
