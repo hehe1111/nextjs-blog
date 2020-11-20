@@ -92,7 +92,7 @@ const useCreateOrEdit = ({
       client.post(url, { ...formData, title, content }).then(
         () => {
           alert(`${type}成功`);
-          router.push(`/admin`);
+          type === '修改' ? router.back() : router.push(`/admin`);
         },
         (error: AxiosError) => console.log(error.response.data.message)
       );
