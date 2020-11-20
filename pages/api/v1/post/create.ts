@@ -26,7 +26,7 @@ const PostCreate: NextApiHandler = async (request, response) => {
     response.json(post);
   } catch (error) {
     response.statusCode = 500;
-    response.json({ message: '服务器错误，新增失败' });
+    response.json({ message: '服务器错误，新增文章失败' });
   }
 };
 
