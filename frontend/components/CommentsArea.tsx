@@ -6,6 +6,7 @@ import { Comment } from 'db/src/entity/Comment';
 import Button from 'frontend/components/Button';
 import _Input from 'frontend/components/Input';
 import Small from 'frontend/components/Small';
+import {AvatarAndName, Avatar , Name} from 'frontend/components/AvatarAndName';
 import client from 'frontend/client';
 import { escape, formattedDate, formattedTime } from 'frontend/utils';
 
@@ -212,9 +213,6 @@ const CommentRow = styled.div`
   padding-top: 30px;
   word-break: break-all;
 `;
-export const Name = styled.span`
-  color: var(--red);
-`;
 const Replies = styled.div`
   padding-left: 2em;
 `;
@@ -235,8 +233,11 @@ function CommentsDisplay({ comments, setReply, scrollToForm }) {
         const { comment, replies } = formatComments[id] as IComment;
         return (
           <CommentRow key={id}>
-            <Name>{comment.username}</Name>
-            <span>：</span>
+            <AvatarAndName>
+              <Avatar />
+              <Name>{comment.username}</Name>
+              <span>：</span>
+            </AvatarAndName>
             <ContentRow
               comment={comment}
               setReply={setReply}
@@ -246,10 +247,13 @@ function CommentsDisplay({ comments, setReply, scrollToForm }) {
             <Replies>
               {replies.map(r => (
                 <CommentRow key={r.id}>
-                  <Name>{r.username}</Name>
-                  <span> 回复 </span>
-                  <Name>{r.replyTo}</Name>
-                  <span>：</span>
+                  <AvatarAndName>
+                    <Avatar />
+                    <Name>{r.username}</Name>
+                    <span>&nbsp;回复&nbsp;</span>
+                    <Name>{r.replyTo}</Name>
+                    <span>：</span>
+                  </AvatarAndName>
                   <ContentRow
                     comment={r}
                     setReply={setReply}

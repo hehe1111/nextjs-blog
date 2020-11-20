@@ -7,7 +7,7 @@ import { User } from 'db/src/entity/User';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
 import { withSession } from 'backend/withSession';
 import Button from 'frontend/components/Button';
-import { Name } from 'frontend/components/CommentsArea';
+import { AvatarAndName, Avatar, Name } from 'frontend/components/AvatarAndName';
 import client from 'frontend/client';
 import useAuth from 'frontend/hooks/useAuth';
 
@@ -56,10 +56,11 @@ const PostComments: NextPage<{ post: Post; user: User }> = ({ post, user }) => {
       {comments.map(c => (
         <Row key={c.id}>
           <NameAndDelete>
-            <div>
+            <AvatarAndName>
+              <Avatar />
               <Name>{c.username}</Name>
               <span>：</span>
-            </div>
+            </AvatarAndName>
             <Button className="red" onClick={() => onDelete(c.id)}>
               删除
             </Button>
