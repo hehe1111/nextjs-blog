@@ -81,12 +81,17 @@ const Tip = styled.span`
   font-size: 16px;
   color: var(--red);
 `;
-const ReplyTo = styled.div`
+const ReplyTo = styled.span`
   margin-top: 16px;
+  padding: 4px;
+  border-radius: 20px;
+  display: inline-block;
+  background-color: var(--blue);
+  color: var(--white);
   cursor: pointer;
   &::after {
     content: '✖';
-    padding-left: 16px;
+    padding: 0 4px 0 20px;
   }
 `;
 
@@ -185,7 +190,9 @@ const CommentsArea = ({ post }: IProps) => {
           {error && <Tip>{error}</Tip>}
           {loading && <Tip>加载中...</Tip>}
           {reply.replyTo && (
-            <ReplyTo onClick={onCancelReply}>@{reply.replyTo}</ReplyTo>
+            <div>
+              <ReplyTo onClick={onCancelReply}>@{reply.replyTo}</ReplyTo>
+            </div>
           )}
         </EmptyLeft>
       </Form>
