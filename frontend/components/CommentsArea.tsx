@@ -220,6 +220,7 @@ const Replies = styled.div`
 `;
 function CommentsDisplay({ comments, setReply, scrollToForm }) {
   const formatComments: IComments = {};
+  comments.sort((a: Comment, b: Comment) => a.id - b.id);
   comments.map((c: Comment) => {
     if (c.replyTo) {
       formatComments[c.sourceCommentId].replies.push(c);
