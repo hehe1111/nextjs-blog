@@ -6,7 +6,7 @@ import { Comment } from 'db/src/entity/Comment';
 import Button from 'frontend/components/Button';
 import _Input from 'frontend/components/Input';
 import Small from 'frontend/components/Small';
-import {AvatarAndName, Avatar , Name} from 'frontend/components/AvatarAndName';
+import { AvatarAndName, Avatar, Name } from 'frontend/components/AvatarAndName';
 import client from 'frontend/client';
 import { escape, formattedDate, formattedTime } from 'frontend/utils';
 
@@ -151,7 +151,7 @@ const CommentsArea = ({ post }: IProps) => {
         )
         .finally(() => setLoading(false));
     },
-    [formData]
+    [formData, loading, reply]
   );
 
   return (
