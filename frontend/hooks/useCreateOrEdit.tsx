@@ -8,7 +8,6 @@ import client from 'frontend/client';
 import Button from 'frontend/components/Button';
 import Input from 'frontend/components/Input';
 import Md from 'frontend/components/Md';
-import { leftEscape } from 'frontend/utils';
 import useAuth from './useAuth';
 
 type IProps = {
@@ -150,10 +149,7 @@ const useCreateOrEdit = ({
             placeholder="请输入标题"
             value={formData.title}
             onChange={event =>
-              setFormData({
-                ...formData,
-                title: leftEscape(event.target.value),
-              })
+              setFormData({ ...formData, title: event.target.value })
             }
           />
         </Row>
@@ -169,10 +165,7 @@ const useCreateOrEdit = ({
               placeholder="请输入内容"
               value={formData.content}
               onChange={event =>
-                setFormData({
-                  ...formData,
-                  content: leftEscape(event.target.value),
-                })
+                setFormData({ ...formData, content: event.target.value })
               }
             />
             <Md string={formData.content} ref={mdRef} />
