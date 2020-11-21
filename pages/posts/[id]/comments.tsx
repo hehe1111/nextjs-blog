@@ -33,6 +33,7 @@ const NameAndDelete = styled.div`
 
 const PostComments: NextPage<{ post: Post; user: User }> = ({ post, user }) => {
   useAuth(user);
+  post.comments.sort((a, b) => a.id - b.id);
   const [comments, setComments] = useState(post.comments);
   const onDelete = useCallback(id => {
     client
