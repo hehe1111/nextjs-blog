@@ -1,5 +1,6 @@
 import { NextPage, GetServerSidePropsContext, GetServerSideProps } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { useEffect, useRef } from 'react';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
@@ -11,8 +12,21 @@ import CommentsArea from 'frontend/components/CommentsArea';
 import _Small from 'frontend/components/Small';
 import client from 'frontend/client';
 
+const Page = styled.div`
+  position: relative;
+`;
+const NavBar = styled.div`
+  width: 100%;
+  padding: 8px 16px;
+  background-color: var(--white);
+  box-shadow: 0 0 4px 4px var(--grey);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+`;
 const PostTitle = styled.h1`
-  margin: 20px 0;
+  margin: 80px 0 20px 0;
   text-align: center;
 `;
 const Small = styled(_Small)`
@@ -59,11 +73,16 @@ const ThePost: NextPage<{ post: Post }> = ({ post }) => {
   }, [post]);
 
   return (
-    <>
+    <Page>
       <Head>
         <title>{post.title}</title>
       </Head>
 
+      <NavBar>
+        <Link href="/posts">
+          <a>全部文章</a>
+        </Link>
+      </NavBar>
       <PostTitle>{post.title}</PostTitle>
       <Small>
         <PostDate date={post.createdAt} />
@@ -75,7 +94,7 @@ const ThePost: NextPage<{ post: Post }> = ({ post }) => {
         <TheEnd>~ 全文完 ~</TheEnd>
         <CommentsArea post={post} />
       </ContentAndComments>
-    </>
+    </Page>
   );
 };
 
