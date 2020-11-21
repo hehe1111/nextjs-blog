@@ -3,7 +3,7 @@ docker container start postgresql1 &&
 cd /home/blog/app/nextjs-blog &&
 git reset --hard HEAD &&
 git pull &&
-yarn --production=false &&
+yarn --production=true &&
 rm -rf ./.next/ &&
 yarn build &&
 yarn compile:src &&
