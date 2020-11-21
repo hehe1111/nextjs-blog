@@ -35,16 +35,19 @@ const PostComments: NextPage<{ post: Post; user: User }> = ({ post, user }) => {
   useAuth(user);
   post.comments.sort((a, b) => a.id - b.id);
   const [comments, setComments] = useState(post.comments);
-  const onDelete = useCallback(id => {
-    client
-      .delete('/api/v1/comment/delete', { data: { id } })
-      .then((response: AxiosResponse) => alert(response.data.message))
-      .then(() => client.post('/api/v1/comment/fetch', { id: post.id }))
-      .then((response: AxiosResponse) => setComments(response.data))
-      .catch((error: AxiosError) =>
-        console.log(error.response.data.message, JSON.stringify(error))
-      );
-  }, []);
+  const onDelete = useCallback(
+    id => {
+      client
+        .delete('/api/v1/comment/delete', { data: { id } })
+        .then((response: AxiosResponse) => alert(response.data.message))
+        .then(() => client.post('/api/v1/comment/fetch', { id: post.id }))
+        .then((response: AxiosResponse) => setComments(response.data))
+        .catch((error: AxiosError) =>
+          console.log(error.response.data.message, JSON.stringify(error))
+        );
+    },
+    [post.id]
+  );
 
   return !user ? (
     <>请先登录</>
