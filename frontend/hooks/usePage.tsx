@@ -28,7 +28,7 @@ const PageAnchor = styled.div`
   }
 `;
 
-const usePage = ({ page, totalPage }: IProps) => {
+const usePage = ({ page, totalPage }: IProps): JSX.Element => {
   const numbers = generatePaginationNumberArray({ page, totalPage });
   return (
     <>

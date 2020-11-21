@@ -11,7 +11,7 @@ const Container = styled.div`
 `;
 
 // https://www.nextjs.cn/docs/basic-features/typescript#custom-app
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <Container>
       <Head>

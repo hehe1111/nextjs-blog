@@ -22,7 +22,7 @@ const useSignUpOrSignIn = ({
   url,
   successRoute,
   type,
-}: IProps) => {
+}: IProps): JSX.Element => {
   const [formData, setFormData] = useState(initialFormData);
 
   const _errors: { [key in keyof IFormData]?: string[] } = {};
@@ -52,7 +52,7 @@ const useSignUpOrSignIn = ({
         }
       );
     },
-    [formData]
+    [formData, router, successRoute, type, url]
   );
 
   return (

@@ -32,11 +32,11 @@ export class User {
   password: string;
 
   @BeforeInsert()
-  generatePasswordDigest() {
+  generatePasswordDigest(): void {
     this.passwordDigest = md5(this.password);
   }
 
-  toJSON() {
+  toJSON(): Partial<this> {
     return omit(this, ['password', 'passwordConfirmation', 'passwordDigest']);
   }
 }

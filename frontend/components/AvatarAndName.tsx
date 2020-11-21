@@ -5,7 +5,9 @@ const Image = styled.img`
   margin-right: 10px;
 `;
 
-export const Avatar = () => <Image src="/avatar.svg" alt="avatar" />;
+export const Avatar = (): JSX.Element => (
+  <Image src="/avatar.svg" alt="avatar" />
+);
 
 export const AvatarAndName = styled.div`
   display: flex;

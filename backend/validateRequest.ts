@@ -5,12 +5,16 @@ type IConfig = {
   method?: Method;
   auth?: boolean;
 };
+type IResult = {
+  isMethodValidated: boolean;
+  isAuthenticated?: boolean;
+};
 
 const validateRequest = (
   request: NextApiRequest,
   response: NextApiResponse,
   config: IConfig
-) => {
+): IResult => {
   const result = { isMethodValidated: true, isAuthenticated: true };
   if (
     config.method &&

@@ -149,7 +149,7 @@ export function PostListCommon({
   totalComments,
   user,
   children,
-}: ICommonProps) {
+}: ICommonProps): JSX.Element {
   const pager = usePage({ page, totalPage });
 
   return (

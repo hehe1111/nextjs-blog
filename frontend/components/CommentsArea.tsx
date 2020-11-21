@@ -99,14 +99,13 @@ const ReplyTo = styled.span`
 const CONTENT = '评论';
 const USERNAME = '用户名';
 const EMAIL = '邮箱';
-
-const CommentsArea = ({ post }: IProps) => {
+const initialFormData = { username: '', email: '', content: '' };
+const replyEmptyState = { sourceCommentId: -1, replyTo: '' };
+const CommentsArea = ({ post }: IProps): JSX.Element => {
   const [comments, setComments] = useState(post.comments);
-  const initialFormData = { username: '', email: '', content: '' };
   const [formData, setFormData] = useState<IFormData>(initialFormData);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const replyEmptyState = { sourceCommentId: -1, replyTo: '' };
   const [reply, setReply] = useState(replyEmptyState);
   const onCancelReply = useCallback(() => {
     setReply(replyEmptyState);
@@ -151,7 +150,7 @@ const CommentsArea = ({ post }: IProps) => {
         )
         .finally(() => setLoading(false));
     },
-    [formData, loading, reply]
+    [error, formData, loading, post.id, reply]
   );
 
   return (
@@ -303,7 +302,7 @@ function ContentRow({ comment, setReply, scrollToForm }) {
       sourceCommentId: sourceCommentId || id,
       replyTo: username,
     });
-  }, []);
+  }, [id, scrollToForm, setReply, sourceCommentId, username]);
   return (
     <ContentRowElement>
       <Content>{content}</Content>

@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { createConnection, getConnectionManager } from 'typeorm';
+import { Connection, createConnection, getConnectionManager } from 'typeorm';
 import config from 'ormconfig';
 import { Post } from 'db/src/entity/Post';
 import { User } from 'db/src/entity/User';
@@ -13,6 +13,6 @@ const promise = (async function () {
   return createConnection({ ...config, entities: [Post, User, Comment] });
 })();
 
-const getDatabaseConnection = () => promise;
+const getDatabaseConnection = (): Promise<Connection> => promise;
 
 export default getDatabaseConnection;

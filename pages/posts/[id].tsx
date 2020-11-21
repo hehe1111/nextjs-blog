@@ -1,7 +1,7 @@
 import { NextPage, GetServerSidePropsContext, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
 import { withSession } from 'backend/withSession';
 import { Post } from 'db/src/entity/Post';
@@ -50,13 +50,13 @@ const TheEnd = styled(_Small)`
 `;
 
 const ThePost: NextPage<{ post: Post }> = ({ post }) => {
-  let countSuccess = true;
+  const countSuccess = useRef(true);
   useEffect(() => {
     post.pageView += 1;
     client
       .post('/api/v1/comment/count', { id: post.id, pageView: post.pageView })
-      .catch(() => (countSuccess = false));
-  }, []);
+      .catch(() => (countSuccess.current = false));
+  }, [post]);
 
   return (
     <>

@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   const router = useRouter();
   useEffect(() => {
     router.push('/posts');
-  }, []);
+  }, [router]);
   return (
     <>
       <Head>

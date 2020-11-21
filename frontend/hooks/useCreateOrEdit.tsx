@@ -97,7 +97,7 @@ const useCreateOrEdit = ({
         (error: AxiosError) => console.log(error.response.data.message)
       );
     },
-    [formData]
+    [formData, router, type, url]
   );
 
   // 让右边预览区域的高度在不超出屏幕的前提下撑满屏幕空白区域

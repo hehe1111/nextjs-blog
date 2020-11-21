@@ -13,9 +13,10 @@ export const escape = (str: string): string => {
   return str;
 };
 
-export const prefixDateTime = (target: number) => {
+export const prefixDateTime = (target: number): number | string => {
   return target < 10 ? `0${target}` : target;
 };
+
 export type ITime = number | string | Date;
 export const formattedDate = (
   time = new Date() as ITime,
@@ -23,7 +24,7 @@ export const formattedDate = (
     separator: '/',
     prefixEnabled: true,
   }
-) => {
+): string => {
   const _time = new Date(time);
   const offset = _time.getTimezoneOffset() * 60 * 1000;
   // 数据库存储的是不带时区的时间戳，故只能手动加上时区
@@ -45,7 +46,7 @@ export const formattedTime = (
     separator: ':',
     prefixEnabled: true,
   }
-) => {
+): string => {
   const _time = new Date(time);
   const offset = _time.getTimezoneOffset() * 60 * 1000;
   const __time = new Date(_time.getTime() - offset);
