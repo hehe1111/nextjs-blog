@@ -4,7 +4,7 @@ FROM node:12
 WORKDIR /usr/src/app
 COPY package.json ./
 COPY yarn.lock ./
-RUN yarn install
+RUN yarn --production=true
 COPY ./.next/ ./.next/
 EXPOSE 3000
 CMD [ "yarn", "start" ]
