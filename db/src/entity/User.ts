@@ -8,8 +8,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import omit from 'lodash/omit';
+import md5 from 'md5';
 import { Post } from './Post';
-import { createDigest } from 'backend/utils';
+
+const createDigest = (string: string): string => {
+  const { SALT_1, SALT_2, SALT_3 } = process.env;
+  return md5(md5(md5(string + SALT_1) + SALT_2) + SALT_3);
+};
 
 @Entity('users')
 export class User {
