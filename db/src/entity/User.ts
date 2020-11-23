@@ -33,7 +33,10 @@ export class User {
 
   @BeforeInsert()
   generatePasswordDigest(): void {
-    this.passwordDigest = md5(this.password);
+    const { SALT_1, SALT_2, SALT_3 } = process.env;
+    this.passwordDigest = md5(
+      md5(md5(this.password + SALT_1) + SALT_2) + SALT_3
+    );
   }
 
   toJSON(): Partial<this> {

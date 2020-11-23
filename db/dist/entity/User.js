@@ -42,7 +42,11 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
   (0, _createClass2["default"])(User, [{
     key: "generatePasswordDigest",
     value: function generatePasswordDigest() {
-      this.passwordDigest = (0, _md["default"])(this.password);
+      var _process$env = process.env,
+          SALT_1 = _process$env.SALT_1,
+          SALT_2 = _process$env.SALT_2,
+          SALT_3 = _process$env.SALT_3;
+      this.passwordDigest = (0, _md["default"])((0, _md["default"])((0, _md["default"])(this.password + SALT_1) + SALT_2) + SALT_3);
     }
   }, {
     key: "toJSON",
