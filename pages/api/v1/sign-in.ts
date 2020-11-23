@@ -44,7 +44,23 @@ async function validateSignIn({
     'User',
     { where: { username } }
   );
+
+  console.log('before found');
   if (found) {
+    console.log('===');
+    console.log('found.passwordDigest', 'createDigest(password)');
+    console.log(found.passwordDigest, createDigest(password));
+    console.log('password');
+    console.log(password);
+    const { SALT_1, SALT_2, SALT_3 } = process.env;
+    console.log('SALT_1');
+    console.log(SALT_1);
+    console.log('SALT_2');
+    console.log(SALT_2);
+    console.log('SALT_3');
+    console.log(SALT_3);
+    console.log('====');
+
     if (found.passwordDigest !== createDigest(password)) {
       errors.password.push('密码与用户名不匹配');
     }
