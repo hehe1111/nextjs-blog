@@ -7,9 +7,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import md5 from 'md5';
 import omit from 'lodash/omit';
 import { Post } from './Post';
+import { createDigest } from 'backend/utils';
 
 @Entity('users')
 export class User {
@@ -33,10 +33,7 @@ export class User {
 
   @BeforeInsert()
   generatePasswordDigest(): void {
-    const { SALT_1, SALT_2, SALT_3 } = process.env;
-    this.passwordDigest = md5(
-      md5(md5(this.password + SALT_1) + SALT_2) + SALT_3
-    );
+    this.passwordDigest = createDigest(this.password);
   }
 
   toJSON(): Partial<this> {

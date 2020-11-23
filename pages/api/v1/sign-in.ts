@@ -1,9 +1,9 @@
 import { NextApiHandler } from 'next';
-import md5 from 'md5';
 import { User } from 'db/src/entity/User';
 import { withSession } from 'backend/withSession';
 import validateRequest from 'backend/validateRequest';
 import getDatabaseConnection from 'backend/getDatabaseConnection';
+import { createDigest } from 'backend/utils';
 
 const SignIn: NextApiHandler = async (request, response) => {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -45,7 +45,7 @@ async function validateSignIn({
     { where: { username } }
   );
   if (found) {
-    if (found.passwordDigest !== md5(password)) {
+    if (found.passwordDigest !== createDigest(password)) {
       errors.password.push('密码与用户名不匹配');
     }
   } else {

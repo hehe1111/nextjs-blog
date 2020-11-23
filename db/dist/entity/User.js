@@ -21,9 +21,9 @@ var _initializerWarningHelper2 = _interopRequireDefault(require("@babel/runtime/
 
 var _typeorm = require("typeorm");
 
-var _md = _interopRequireDefault(require("md5"));
-
 var _omit = _interopRequireDefault(require("lodash/omit"));
+
+var _utils = require("backend/utils");
 
 var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _temp;
 
@@ -42,11 +42,7 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
   (0, _createClass2["default"])(User, [{
     key: "generatePasswordDigest",
     value: function generatePasswordDigest() {
-      var _process$env = process.env,
-          SALT_1 = _process$env.SALT_1,
-          SALT_2 = _process$env.SALT_2,
-          SALT_3 = _process$env.SALT_3;
-      this.passwordDigest = (0, _md["default"])((0, _md["default"])((0, _md["default"])(this.password + SALT_1) + SALT_2) + SALT_3);
+      this.passwordDigest = (0, _utils.createDigest)(this.password);
     }
   }, {
     key: "toJSON",
