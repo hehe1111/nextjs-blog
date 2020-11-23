@@ -44,7 +44,7 @@ const Admin: NextPage<IProps> = props => {
         router.push('/posts');
       })
       .catch(error => console.log(error));
-  }, []);
+  }, [router]);
 
   return !props.user ? (
     <>请先登录</>
