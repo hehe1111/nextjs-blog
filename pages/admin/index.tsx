@@ -114,7 +114,7 @@ const Header = styled.header`
 `;
 const PostTitleItem = styled.div`
   padding: 16px 0;
-  border-bottom: 1px dashed var(--grey);
+  border-bottom: 1px solid var(--grey);
   font-size: 24px;
   display: flex;
   align-items: center;
@@ -160,7 +160,7 @@ export function PostListCommon({
 
       <Header>
         <small>
-          （共 {total} 篇文章{isAdminPage && <>，{totalComments} 条评论</>}）
+          共 {total} 篇文章{isAdminPage && <>，{totalComments} 条评论</>}
         </small>
 
         {/* 新增 */}
